@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { trpc } from "$lib/trpc/client";
+	import { tAuthSafe } from "$lib/trpc/autoRedirect";
 	import { onMount } from "svelte";
 
 	onMount(async () => {
-		const devices = await trpc($page).devices.list.query();
+		const devices = await tAuthSafe($page, async (trpc) => {
+			return trpc.devices.list.query();
+		});
 	});
 </script>
 
