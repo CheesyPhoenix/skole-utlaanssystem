@@ -1,8 +1,8 @@
-import { docs } from "./routes/docs";
+import { devices } from "./routes/devices";
 import { t } from "./t";
 
 export const router = t.router({
-	docs,
+	devices,
 });
 
 export type Router = typeof router;
