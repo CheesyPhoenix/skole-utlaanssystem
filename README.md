@@ -1,38 +1,45 @@
-# create-svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Dere skal lage et system som for en skole som har en rekke Rasperry Pier, Micro:bits og Arduinoer, alt med tilleggsutstyr. Systemet skal holde på informasjon om alle enhetene og ekstrautstyr, og la elever bla gjennom hva som er tilgjengelig av utstyr og legge inn bestilling på utstyr. Lærere skal kunne gå inn og se bestillinger som er gjort, og bekrefte reservasjon og utlevering av utstyr. Ved innlevering er det lærer som registrerer utstyr som innlevert. Lærere og elever skal kunne registrere seg selv, men lærere får ikke lærerstatus før administrator har godkjent søknad om dette. Det er kun administrator som skal kunne legge inn nytt utstyr.
 
-## Creating a project
 
-If you're seeing this, you've probably already done this step. Congrats!
+System:
+- Ha info om alle enheter + ekstra utstyr til hver enhet
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Admin:
+- Godkjenne lærer oppretting
+- legge inn nytt utstyr
+Elev:
+- Opprette konto selv
+- Se og bestille utstyr
+Lærer:
+- Oprette konto selv, men må goskjennes av admin
+- Se bestillinger
+- Bekrefte reservasjon -> bekrefte utlevering -> bekrefte innlevering
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
 
-## Developing
+Pages:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Oversikt:
+- Alle enheter som ikke har en bestilling med status "reservert" eller "utlevert"
+- Bestillingsside:
+	- Velge utstyr for enhet
 
-```bash
-npm run dev
+Bestillinger (lærer)/Mine bestillinger (elev):
+- Bestillinger:
+	- Se og godkjenne/ikke godkjenne bestilling -> status "reservert"
+	- Sette status fra "reservert" til "utlevert"
+	- Sette status fra "utlevert" til "innlevert", arkiverer bestilling
+- Mine bestillinger
+	- Se status på bruker sine bestillinger
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Login/register:
+- account type "lærer" or "elev" + "admin" (kun login)
 
-## Building
+Change password:
+- All account types
 
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Admin side:
+- Konto godkjenning:
+	- Se og godkjenne lærer kontoer
+- Utstyr
+	- Se og legge til nytt utstyr
