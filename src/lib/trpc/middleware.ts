@@ -26,7 +26,7 @@ export const teacherRoute = t.middleware(async ({ ctx, next }) => {
 
 	const user = await prisma.user.findUnique({ where: { id: ctx.userId } });
 
-	if (user === null || user.isTeacher === false) {
+	if (user === null || (!user.isTeacher && !user.isAdmin)) {
 		throw new TRPCError({ code: "UNAUTHORIZED" });
 	}
 

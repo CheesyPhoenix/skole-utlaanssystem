@@ -9,10 +9,10 @@ export const devices = t.router({
 	}),
 	get: t.procedure
 		.use(normalRoute)
-		.input(z.object({ id: z.number() }))
+		.input(z.object({ deviceId: z.number() }))
 		.query(async ({ input }) => {
 			return await prisma.device.findUnique({
-				where: { id: input.id },
+				where: { id: input.deviceId },
 				include: { addons: true },
 			});
 		}),
