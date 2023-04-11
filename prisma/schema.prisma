@@ -10,8 +10,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Doc {
-  id   Int    @id @default(autoincrement())
-  name String
-  url  String
+model Device {
+  id     Int     @id @default(autoincrement())
+  addons Addon[]
+  name   String
+  Order  Order[]
+}
+
+model Addon {
+  id       Int     @id @default(autoincrement())
+  Device   Device? @relation(fields: [deviceId], references: [id])
+  deviceId Int?
+  name     String
+  Order    Order?  @relation(fields: [orderId], references: [id])
+  orderId  Int?
+}
+
+model Order {
+  id          Int     @id @default(autoincrement())
+  user        User    @relation(fields: [userId], references: [id])
+  device      Device  @relation(fields: [deviceId], references: [id])
+  addons      Addon[]
+  isReserved  Boolean @default(true)
+  isDelivered Boolean @default(false)
+  isReturend  Boolean @default(false)
+  userId      Int
+  deviceId    Int
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  Sessions     Session[]
+  Order        Order[]
+  name         String
+  isAdmin      Boolean   @default(false)
+  isTeacher    Boolean   @default(false)
+  passwordHash String
+}
+
+model TeacherRequest {
+  id           Int    @id @default(autoincrement())
+  name         String
+  passwordHash String
+}
+
+model Session {
+  id     Int      @id @default(autoincrement())
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  key    String   @unique
+  expire DateTime
 }
