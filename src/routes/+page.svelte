@@ -5,9 +5,7 @@
 </script>
 
 <main class="m-2">
-	<h1 class="text-xl font-bold mb-2">
-		Welcome to SvelteKit + TailwindCSS + Prisma + TRPC
-	</h1>
+	<h1 class="text-xl font-bold mb-2">Utlånssystem</h1>
 
 	<h2>Docs:</h2>
 
