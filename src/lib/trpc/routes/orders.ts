@@ -5,7 +5,7 @@ import { t } from "../t";
 
 export const orders = t.router({
 	list: t.procedure.use(teacherRoute).query(async () => {
-		return await prisma.order.findMany({ include: { device: true } });
+		return await prisma.order.findMany({ include: { Device: true } });
 	}),
 	get: t.procedure
 		.use(teacherRoute)
@@ -14,9 +14,9 @@ export const orders = t.router({
 			return await prisma.order.findUnique({
 				where: { id: input.orderId },
 				include: {
-					addons: true,
-					device: true,
-					user: { select: { name: true, id: true } },
+					Addons: true,
+					Device: true,
+					User: { select: { name: true, id: true } },
 				},
 			});
 		}),
@@ -40,9 +40,13 @@ export const orders = t.router({
 
 			const order = await prisma.order.create({
 				data: {
-					userId: ctx.user.id,
-					deviceId: device.id,
-					addons: { connect: addons },
+					User: { connect: { id: ctx.user.id } },
+					Device: { connect: { id: device.id } },
+					Addons: {
+						connect: addons.map((x) => {
+							return { id: x.id };
+						}),
+					},
 				},
 			});
 

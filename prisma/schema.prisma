@@ -12,9 +12,9 @@ datasource db {
 
 model Device {
   id     Int     @id @default(autoincrement())
-  addons Addon[]
+  Addons Addon[]
   name   String
-  Order  Order[]
+  Orders Order[]
 }
 
 model Addon {
@@ -28,9 +28,9 @@ model Addon {
 
 model Order {
   id          Int     @id @default(autoincrement())
-  user        User    @relation(fields: [userId], references: [id])
-  device      Device  @relation(fields: [deviceId], references: [id])
-  addons      Addon[]
+  User        User    @relation(fields: [userId], references: [id])
+  Device      Device  @relation(fields: [deviceId], references: [id])
+  Addons      Addon[]
   isReserved  Boolean @default(true)
   isDelivered Boolean @default(false)
   isReturend  Boolean @default(false)
@@ -41,7 +41,7 @@ model Order {
 model User {
   id           Int       @id @default(autoincrement())
   Sessions     Session[]
-  Order        Order[]
+  Orders       Order[]
   name         String    @unique
   isAdmin      Boolean   @default(false)
   isTeacher    Boolean   @default(false)
@@ -56,7 +56,7 @@ model TeacherRequest {
 
 model Session {
   id     Int      @id @default(autoincrement())
-  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
   key    String   @unique
   expire DateTime
