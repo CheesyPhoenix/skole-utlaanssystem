@@ -18,8 +18,6 @@ export const users = t.router({
 		};
 	}),
 	teachers: t.procedure.use(adminRoute).query(async () => {
-		return await prisma.user.findMany({
-			where: { isTeacher: true },
-		});
+		return await prisma.user.findMany({ where: { isTeacher: true } });
 	}),
 });
