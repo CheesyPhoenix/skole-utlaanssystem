@@ -50,7 +50,7 @@ model User {
 
 model TeacherRequest {
   id           Int    @id @default(autoincrement())
-  name         String
+  name         String @unique
   passwordHash String
 }
 
