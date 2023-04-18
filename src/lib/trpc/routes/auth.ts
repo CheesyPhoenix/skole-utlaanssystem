@@ -38,9 +38,13 @@ export const auth = t.router({
 			})
 		)
 		.mutation(async ({ input }) => {
-			const existingUser = await prisma.user.findUnique({
-				where: { name: input.username },
-			});
+			const existingUser =
+				(await prisma.user.findUnique({
+					where: { name: input.username },
+				})) ??
+				(await prisma.teacherRequest.findUnique({
+					where: { name: input.username },
+				}));
 
 			if (existingUser !== null)
 				return {
@@ -68,7 +72,7 @@ export const auth = t.router({
 
 			return {
 				success: true,
-				message: "Teacher request created successfylly",
+				message: "Teacher request created successfully",
 			} as const;
 		}),
 	createAdmin: t.procedure
