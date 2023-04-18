@@ -1,59 +1,51 @@
 <script lang="ts">
-	import { trpc } from "$lib/trpc/client";
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+	import { tAuthSafe } from "$lib/trpc/autoRedirect";
 
 	let username = "";
 	let password = "";
-	let userType = "student";
+
+	let result: { message: string; success: boolean } | undefined = undefined;
 
 	async function submit() {
-		await trpc().login.login.query({ username, password });
+		await tAuthSafe($page, async (trpc) => {
+			const res = await trpc.auth.login.query({
+				password,
+				username,
+			});
+
+			if (typeof res === "string") {
+				await goto("/api/setSessionKey/" + res);
+			} else {
+				result = res;
+			}
+		});
 	}
 </script>
 
-<main class="m-2">
-	<h1 class="text-xl font-bold mb-2">Login</h1>
+<form on:submit|preventDefault={submit}>
+	<label for="username">Username</label>
+	<input type="text" name="username" bind:value={username} />
 
-	<form on:submit|preventDefault={submit}>
-		<input
-			class="block"
-			type="text"
-			name="username"
-			id="username"
-			bind:value={username}
-			placeholder="Username"
-		/>
-		<input
-			class="block"
-			type="password"
-			name="password"
-			id="password"
-			bind:value={password}
-			placeholder="Password"
-		/>
+	<br />
 
-		<input
-			class="block"
-			type="radio"
-			name="userType"
-			id="userType"
-			value="student"
-			bind:group={userType}
-		/>
-		<input
-			class="block"
-			type="radio"
-			name="userType"
-			id="userType"
-			value="teacher"
-			bind:group={userType}
-		/>
-		<input
-			class="block"
-			type="radio"
-			name="userType"
-			id="userType"
-			value="admin"
-			bind:group={userType}
-		/>
-	</form>
-</main>
+	<label for="password">Password</label>
+	<input type="password" name="password" bind:value={password} />
+
+	{#if result}
+		<p class={result.success ? "bg-green-600" : "bg-red-600"}>
+			{result.message}
+		</p>
+	{/if}
+
+	<button type="submit" class="block bg-slate-600 p-2 rounded-lg mt-2"
+		>Login</button
+	>
+</form>
+
+<style lang="postcss">
+	input {
+		@apply text-slate-900;
+	}
+</style>
