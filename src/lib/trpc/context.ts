@@ -1,4 +1,4 @@
-import prisma from "$lib/prisma";
+import prisma from "$lib/server/prisma";
 import type { RequestEvent } from "@sveltejs/kit";
 import type { inferAsyncReturnType } from "@trpc/server";
 
