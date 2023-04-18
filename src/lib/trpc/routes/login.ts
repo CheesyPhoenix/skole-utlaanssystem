@@ -22,7 +22,10 @@ export const auth = t.router({
 				user === null ||
 				!bcrypt.compareSync(input.password, user.passwordHash)
 			)
-				return "Username or password doesn't exits" as const;
+				return {
+					success: false,
+					message: "Username or password doesn't exist",
+				} as const;
 
 			return await genNewSession(user.id);
 		}),
@@ -39,7 +42,11 @@ export const auth = t.router({
 				where: { name: input.username },
 			});
 
-			if (existingUser !== null) return "Username taken" as const;
+			if (existingUser !== null)
+				return {
+					success: false,
+					message: "Username taken",
+				} as const;
 
 			if (input.userType === "STUDENT") {
 				const user = await prisma.user.create({
@@ -59,7 +66,10 @@ export const auth = t.router({
 				},
 			});
 
-			return "Teacher request created";
+			return {
+				success: true,
+				message: "Teacher request created successfylly",
+			} as const;
 		}),
 	createAdmin: t.procedure
 		.use(adminRoute)
@@ -70,6 +80,26 @@ export const auth = t.router({
 			})
 		)
 		.mutation(async ({ input }) => {
-			// TODO
+			const existingUser = await prisma.user.findUnique({
+				where: { name: input.username },
+			});
+
+			if (existingUser !== null)
+				return {
+					success: false,
+					message: "Username taken",
+				} as const;
+
+			await prisma.user.create({
+				data: {
+					name: input.username,
+					passwordHash: bcrypt.hashSync(input.password, 10),
+				},
+			});
+
+			return {
+				success: true,
+				message: "Admin created successfully",
+			} as const;
 		}),
 });
