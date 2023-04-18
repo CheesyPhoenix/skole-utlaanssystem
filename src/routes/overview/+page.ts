@@ -3,5 +3,5 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async (event) =>
 	await tAuthSafe(event, async (trpc) => {
-		return { devices: trpc.devices.list.query() };
+		return { devices: await trpc.devices.list.query() };
 	});
