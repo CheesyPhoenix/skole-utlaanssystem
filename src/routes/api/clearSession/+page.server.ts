@@ -1,7 +1,9 @@
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ cookies, params }) => {
+export const load: PageServerLoad = async ({ cookies, url }) => {
 	cookies.delete("sessionKey");
-	throw redirect(303, "/");
+
+	const callback = url.searchParams.get("callback");
+	throw redirect(303, "/" + (callback !== null ? callback : ""));
 };
