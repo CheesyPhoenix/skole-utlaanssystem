@@ -1,6 +1,5 @@
 import type { TRPCClientInit } from "trpc-sveltekit";
 import { trpc as trpcClient } from "./client";
-import { TRPCError } from "@trpc/server";
 import { redirect } from "@sveltejs/kit";
 import { goto } from "$app/navigation";
 import { TRPCClientError } from "@trpc/client";
