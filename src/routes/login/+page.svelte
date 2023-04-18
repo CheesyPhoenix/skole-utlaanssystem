@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { trpc } from "$lib/trpc/client";
+
 	let username = "";
 	let password = "";
 	let userType = "student";
 
 	async function submit() {
-		// TODO
+		await trpc().login.login.query({ username, password });
 	}
 </script>
 
