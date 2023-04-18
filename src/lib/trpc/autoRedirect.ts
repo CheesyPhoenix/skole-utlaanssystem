@@ -5,7 +5,7 @@ import { goto } from "$app/navigation";
 import { TRPCClientError } from "@trpc/client";
 
 export async function tAuthSafe<T>(
-	init: TRPCClientInit,
+	init: TRPCClientInit & { url: { pathname: string } },
 	func: (trpc: ReturnType<typeof trpcClient>) => Promise<T>
 ): Promise<T> {
 	try {
@@ -14,9 +14,12 @@ export async function tAuthSafe<T>(
 		if (error instanceof TRPCClientError) {
 			if (error.message == "UNAUTHORIZED") {
 				if (typeof window === "undefined") {
-					throw redirect(307, "/login");
+					throw redirect(
+						307,
+						"/auth/login?callback=" + init.url.pathname
+					);
 				}
-				goto("/login");
+				goto("/auth/login?callback=" + init.url.pathname);
 			}
 		}
 		throw error;

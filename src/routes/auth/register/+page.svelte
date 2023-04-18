@@ -2,12 +2,15 @@
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { tAuthSafe } from "$lib/trpc/autoRedirect";
+	import type { PageData } from "./$types";
 
 	let userType: "STUDENT" | "TEACHER" = "STUDENT";
 	let username: string;
 	let password: string;
 
 	let result: { message: string; success: boolean } | undefined = undefined;
+
+	export let data: PageData;
 
 	async function submit() {
 		await tAuthSafe($page, async (trpc) => {
@@ -18,7 +21,12 @@
 			});
 
 			if (typeof res === "string") {
-				await goto("/api/setSessionKey/" + res);
+				await goto(
+					"/api/setSessionKey/" +
+						res +
+						"?callback=" +
+						(data.callback === null ? "" : data.callback)
+				);
 			} else {
 				result = res;
 			}

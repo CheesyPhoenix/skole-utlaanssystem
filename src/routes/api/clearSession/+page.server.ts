@@ -5,5 +5,5 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 	cookies.delete("sessionKey");
 
 	const callback = url.searchParams.get("callback");
-	throw redirect(303, "/" + (callback !== null ? callback : ""));
+	throw redirect(307, url.origin + (callback !== null ? callback : ""));
 };
