@@ -1,4 +1,4 @@
-import { tAuthSafe } from "$lib/trpc/autoRedirect";
+import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 

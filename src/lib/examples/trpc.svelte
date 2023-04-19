@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { trpc } from "$lib/trpc/client";
+	import { trpc } from "$lib/trpc-client/client";
 	import { onMount } from "svelte";
 
 	onMount(async () => {
