@@ -64,7 +64,7 @@
 	>
 </form>
 
-<a href="{$page.url.href}/../login">Already have an account? Log in here</a>
+<a href="{$page.url.origin}/auth/login">Already have an account? Log in here</a>
 
 <style lang="postcss">
 	input {
