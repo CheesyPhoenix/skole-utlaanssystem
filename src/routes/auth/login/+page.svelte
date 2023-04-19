@@ -52,6 +52,8 @@
 	>
 </form>
 
+<a href="{$page.url.href}/../register">Don't have an account? Register here</a>
+
 <style lang="postcss">
 	input {
 		@apply text-slate-900;
