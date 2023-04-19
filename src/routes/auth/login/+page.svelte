@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
-	import { tAuthSafe } from "$lib/trpc/autoRedirect";
+	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 	import type { PageData } from "./$types";
 
 	let username = "";

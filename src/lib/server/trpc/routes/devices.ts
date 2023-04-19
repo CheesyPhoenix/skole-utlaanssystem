@@ -1,5 +1,5 @@
 import prisma from "$lib/server/prisma";
-import { t } from "$lib/trpc/t";
+import { t } from "$lib/server/trpc/t";
 import { z } from "zod";
 import { normalRoute } from "../middleware";
 
