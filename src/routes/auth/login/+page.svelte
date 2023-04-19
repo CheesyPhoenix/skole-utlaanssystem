@@ -52,7 +52,9 @@
 	>
 </form>
 
-<a href="{$page.url.href}/../register">Don't have an account? Register here</a>
+<a href="{$page.url.origin}/auth/register"
+	>Don't have an account? Register here</a
+>
 
 <style lang="postcss">
 	input {
