@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { t } from "../t";
-import prisma from "$lib/server/prisma";
+import prisma from "$lib/server/prisma/prisma";
 import bcrypt from "bcrypt";
-import { genNewSession } from "$lib/server/genSession";
+import { genNewSession } from "$lib/server/utils/genSession";
 import { adminRoute } from "../middleware";
 
 export const auth = t.router({

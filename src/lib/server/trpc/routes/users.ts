@@ -1,4 +1,4 @@
-import prisma from "$lib/server/prisma";
+import prisma from "$lib/server/prisma/prisma";
 import { t } from "$lib/server/trpc/t";
 import { z } from "zod";
 import { adminRoute, normalRoute } from "../middleware";

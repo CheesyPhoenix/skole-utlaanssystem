@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { t } from "./t";
-import prisma from "$lib/server/prisma";
+import prisma from "$lib/server/prisma/prisma";
 
 export const normalRoute = t.middleware(async ({ ctx, next }) => {
 	if (ctx.userId === null) {

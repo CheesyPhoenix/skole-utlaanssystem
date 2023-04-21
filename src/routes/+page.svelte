@@ -1,15 +1,20 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 	export let data;
 </script>
 
 <main class="m-2">
 	<h1 class="text-xl font-bold mb-2">Utlånssystem</h1>
-	<a href="{$page.url.origin}/overview">Equipment Overview</a>
+	<LinkButton href="{$page.url.origin}/overview"
+		>Equipment Overview</LinkButton
+	>
 	{#if data.session === undefined}
-		<a href="{$page.url.origin}/auth/login">Login</a>
-		<a href="{$page.url.origin}/auth/register">Register</a>
+		<LinkButton href="{$page.url.origin}/auth/login">Login</LinkButton>
+		<LinkButton href="{$page.url.origin}/auth/register">Register</LinkButton
+		>
 	{:else}
-		<a href="{$page.url.origin}/account">Manage Account</a>
+		<LinkButton href="{$page.url.origin}/account">Manage Account</LinkButton
+		>
 	{/if}
 </main>

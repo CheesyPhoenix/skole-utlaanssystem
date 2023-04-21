@@ -1,4 +1,4 @@
-import prisma from "$lib/server/prisma";
+import prisma from "$lib/server/prisma/prisma";
 import { z } from "zod";
 import { normalRoute, teacherRoute } from "../middleware";
 import { t } from "../t";
@@ -22,21 +22,45 @@ export const orders = t.router({
 		}),
 	order: t.procedure
 		.use(normalRoute)
-		.input(z.object({ deviceId: z.number(), addons: z.array(z.number()) }))
+		.input(
+			z.object({
+				deviceTypeId: z.number(),
+				addonTypes: z.array(z.number()),
+			})
+		)
 		.mutation(async ({ ctx, input }) => {
-			const device = await prisma.device.findUnique({
-				where: { id: input.deviceId },
+			const device = await prisma.device.findFirst({
+				where: {
+					deviceTypeId: input.deviceTypeId,
+					AND: {
+						NOT: {
+							Orders: {
+								some: {
+									isReserved: true,
+									OR: { isDelivered: true },
+								},
+							},
+						},
+					},
+				},
 			});
 			if (device === null) return null;
 
 			const addons = await prisma.addon.findMany({
 				where: {
-					deviceId: device.id,
-					AND: { id: { in: input.addons } },
+					addonTypeId: { in: input.addonTypes },
+					AND: {
+						Type: {
+							CompatibleDevices: {
+								some: { id: input.deviceTypeId },
+							},
+						},
+					},
 				},
+				distinct: ["addonTypeId"],
 			});
 
-			if (addons.length != input.addons.length) return null;
+			if (addons.length !== input.addonTypes.length) return null;
 
 			const order = await prisma.order.create({
 				data: {
