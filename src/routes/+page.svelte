@@ -9,5 +9,7 @@
 	{#if data.session === undefined}
 		<a href="{$page.url.origin}/auth/login">Login</a>
 		<a href="{$page.url.origin}/auth/register">Register</a>
+	{:else}
+		<a href="{$page.url.origin}/account">Manage Account</a>
 	{/if}
 </main>
