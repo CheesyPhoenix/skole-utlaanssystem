@@ -10,20 +10,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model DeviceType {
+  id               Int         @id @default(autoincrement())
+  CompatibleAddons AddonType[]
+  name             String      @unique
+  Devices          Device[]
+}
+
 model Device {
-  id     Int     @id @default(autoincrement())
-  Addons Addon[]
-  name   String
-  Orders Order[]
+  id           Int        @id @default(autoincrement())
+  Type         DeviceType @relation(fields: [deviceTypeId], references: [id])
+  deviceTypeId Int
+  Orders       Order[]
+}
+
+model AddonType {
+  id                Int          @id @default(autoincrement())
+  CompatibleDevices DeviceType[]
+  name              String       @unique
+  Addons            Addon[]
 }
 
 model Addon {
-  id       Int     @id @default(autoincrement())
-  Device   Device? @relation(fields: [deviceId], references: [id])
-  deviceId Int?
-  name     String
-  Order    Order?  @relation(fields: [orderId], references: [id])
-  orderId  Int?
+  id          Int       @id @default(autoincrement())
+  Type        AddonType @relation(fields: [addonTypeId], references: [id])
+  addonTypeId Int
+  Orders      Order[]
 }
 
 model Order {
