@@ -31,15 +31,17 @@
 	<form on:submit|preventDefault={update}>
 		<label for="newPassword">New password</label>
 		<input type="password" name="newPassword" bind:value={newPassword} />
-		<br />
-		<button type="submit">Submit</button>
-	</form>
 
-	{#if result}
-		<p class={result.success ? "bg-green-600" : "bg-red-600"}>
-			{result.message}
-		</p>
-	{/if}
+		{#if result}
+			<p class={result.success ? "bg-green-600" : "bg-red-600"}>
+				{result.message}
+			</p>
+		{/if}
+
+		<button type="submit" class="block bg-slate-600 p-2 rounded-lg mt-2"
+			>Submit</button
+		>
+	</form>
 
 	<h2 class="text-lg mb2">
 		WARNING! This button will delete your account! Deleteing your account is
