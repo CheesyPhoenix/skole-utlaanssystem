@@ -106,4 +106,16 @@ export const auth = t.router({
 				message: "Admin created successfully",
 			} as const;
 		}),
+	userType: t.procedure.query(async ({ ctx }) => {
+		if (ctx.userId === null) return "UNAUTHENTICATED" as const;
+
+		const user = await prisma.user.findUnique({
+			where: { id: ctx.userId },
+		});
+		if (user === null) return "UNAUTHENTICATED" as const;
+
+		if (user.isAdmin) return "ADMIN" as const;
+		if (user.isTeacher) return "TEACHER" as const;
+		return "NORMAL" as const;
+	}),
 });

@@ -12,8 +12,10 @@ export const devices = t.router({
 						every: {
 							Orders: {
 								some: {
-									isReserved: true,
-									OR: { isDelivered: true },
+									OR: [
+										{ isDelivered: true },
+										{ isReserved: true },
+									],
 								},
 							},
 						},
@@ -26,8 +28,10 @@ export const devices = t.router({
 						NOT: {
 							Orders: {
 								some: {
-									isReserved: true,
-									OR: { isDelivered: true },
+									OR: [
+										{ isDelivered: true },
+										{ isReserved: true },
+									],
 								},
 							},
 						},
@@ -50,8 +54,10 @@ export const devices = t.router({
 							NOT: {
 								Orders: {
 									some: {
-										isReserved: true,
-										OR: { isDelivered: true },
+										OR: [
+											{ isDelivered: true },
+											{ isReserved: true },
+										],
 									},
 								},
 							},
@@ -64,8 +70,10 @@ export const devices = t.router({
 									every: {
 										Orders: {
 											some: {
-												isReserved: true,
-												OR: { isDelivered: true },
+												OR: [
+													{ isDelivered: true },
+													{ isReserved: true },
+												],
 											},
 										},
 									},
@@ -73,7 +81,21 @@ export const devices = t.router({
 							},
 						},
 						include: {
-							Addons: { select: { _count: true } },
+							Addons: {
+								select: { _count: true },
+								where: {
+									NOT: {
+										Orders: {
+											some: {
+												OR: [
+													{ isDelivered: true },
+													{ isReserved: true },
+												],
+											},
+										},
+									},
+								},
+							},
 						},
 					},
 				},
