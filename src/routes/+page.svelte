@@ -7,12 +7,12 @@
 
 <main class="m-2">
 	<h1 class="text-xl font-bold mb-2">Utlånssystem</h1>
-	{#if data.userType === "UNAUTHENTICATED"}
+	{#if data.user.type === "UNAUTHENTICATED"}
 		<LinkButton href="/auth/login">Login</LinkButton>
 		<LinkButton href="/auth/register">Register</LinkButton>
 	{:else}
 		<LinkButton href="/orders"
-			>{data.userType === "NORMAL" ? "My Orders" : "Orders"}</LinkButton
+			>{data.user.type === "NORMAL" ? "My Orders" : "Orders"}</LinkButton
 		>
 		<LinkButton href="/overview">Equipment Overview</LinkButton>
 		<LinkButton href="/account">Manage Account</LinkButton>

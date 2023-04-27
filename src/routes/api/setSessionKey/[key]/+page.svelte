@@ -4,7 +4,7 @@
 	import { onMount } from "svelte";
 
 	onMount(async () => {
-		await invalidate("app:userType");
+		await invalidate("app:user");
 
 		const callback = $page.url.searchParams.get("callback");
 		await goto($page.url.origin + (callback !== null ? callback : ""));

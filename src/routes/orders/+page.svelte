@@ -7,7 +7,7 @@
 </script>
 
 <h1 class="text-lg mb-4">
-	{data.userType === "NORMAL" ? "My active orders" : "All active orders"}
+	{data.user.type === "NORMAL" ? "My active orders" : "All active orders"}
 </h1>
 <LinkButton href="/archive" relative>View inactive orders</LinkButton>
 

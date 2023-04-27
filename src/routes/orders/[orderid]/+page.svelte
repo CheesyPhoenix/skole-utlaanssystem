@@ -35,7 +35,7 @@
 					? "RETURNED"
 					: "STATUS MISSING"}</span
 			>
-			{#if ["ADMIN", "TEACHER"].includes(data.userType) && !data.order.isReturned}
+			{#if ["ADMIN", "TEACHER"].includes(data.user.type) && !data.order.isReturned}
 				<div
 					class="absolute rounded-lg bg-slate-700 drop-shadow-lg p-2 w-full text-base opacity-100 bg-opacity-100 z-10"
 				>
