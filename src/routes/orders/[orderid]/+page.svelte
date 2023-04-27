@@ -1,8 +1,23 @@
 <script lang="ts">
+	import { invalidate } from "$app/navigation";
+	import { page } from "$app/stores";
 	import LinkButton from "$lib/components/LinkButton.svelte";
+	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
+
+	function updateStatus(to: "DELIVERED" | "RETURNED") {
+		tAuthSafe($page, async (trpc) => {
+			const res = await trpc.orders.updateOrder.mutate({
+				orderId: data.order.id,
+				newState: to === "DELIVERED" ? "delivered" : "returned",
+			});
+
+			if (res.isError) console.error(res.message);
+			else await invalidate("app:order");
+		});
+	}
 </script>
 
 <main class="m-4 pt-2 max-w-2xl">
@@ -25,13 +40,19 @@
 					class="absolute rounded-lg bg-slate-700 drop-shadow-lg p-2 w-full text-base opacity-100 bg-opacity-100 z-10"
 				>
 					{#if data.order.isReserved}
-						<p class="opacity-70 hover:underline cursor-pointer">
+						<button
+							class="opacity-70 hover:underline cursor-pointer"
+							on:click={() => updateStatus("DELIVERED")}
+						>
 							DELIVERED
-						</p>
+						</button>
 					{/if}
-					<p class="opacity-70 hover:underline cursor-pointer">
+					<button
+						class="opacity-70 hover:underline cursor-pointer"
+						on:click={() => updateStatus("RETURNED")}
+					>
 						RETURNED
-					</p>
+					</button>
 				</div>
 			{/if}
 		</span>

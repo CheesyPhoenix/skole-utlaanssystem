@@ -4,6 +4,8 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async (event) =>
 	tAuthSafe(event, async (trpc) => {
+		event.depends("app:order");
+
 		const orderId = parseInt(event.params.orderid);
 		if (isNaN(orderId)) throw error(400);
 

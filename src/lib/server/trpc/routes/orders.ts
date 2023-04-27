@@ -6,8 +6,6 @@ import { t } from "../t";
 export const orders = t.router({
 	listActive: t.procedure.use(normalRoute).query(async ({ ctx }) => {
 		// show all active orders for teachers and admins, but only own orders for normal user
-
-		console.log(ctx.user);
 		if (ctx.user.isTeacher || ctx.user.isAdmin) {
 			return await prisma.order.findMany({
 				where: {
@@ -152,7 +150,42 @@ export const orders = t.router({
 				newState: z.enum(["delivered", "returned"]),
 			})
 		)
-		.mutation(() => {
-			//TODO
+		.mutation(async ({ input }) => {
+			const order = await prisma.order.findUnique({
+				where: { id: input.orderId },
+			});
+			if (order === null)
+				return {
+					isError: true as const,
+					message: "Order not found" as const,
+				} as const;
+
+			if (order.isReturned)
+				return {
+					isError: true as const,
+					message:
+						"Order is returned. Changes not permitted" as const,
+				} as const;
+
+			if (order.isDelivered && input.newState == "delivered")
+				return {
+					isError: true as const,
+					message: "Order already delivered" as const,
+				} as const;
+
+			await prisma.order.update({
+				where: { id: order.id },
+				data: {
+					isReserved: false,
+					isDelivered: input.newState === "delivered",
+					isReturned: input.newState === "returned",
+				},
+			});
+
+			return {
+				isError: false as const,
+				message:
+					`Order updated successfully. New state: ${input.newState}` as const,
+			} as const;
 		}),
 });
