@@ -7,7 +7,7 @@
 
 <a
 	href={relative ? $page.url.pathname + href : href}
-	class="p-2 bg-slate-600 rounded-xl"
+	class="btn variant-filled-primary"
 >
 	<slot />
 </a>
