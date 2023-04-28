@@ -1,7 +1,7 @@
 import type { TRPCClientInit } from "trpc-sveltekit";
 import { trpc as trpcClient } from "./client";
 import { redirect } from "@sveltejs/kit";
-import { goto } from "$app/navigation";
+import { goto, invalidate } from "$app/navigation";
 import { TRPCClientError } from "@trpc/client";
 
 export async function tAuthSafe<T>(
@@ -19,7 +19,9 @@ export async function tAuthSafe<T>(
 						"/auth/login?callback=" + init.url.pathname
 					);
 				}
-				goto("/auth/login?callback=" + init.url.pathname);
+
+				await invalidate("app:user");
+				await goto("/auth/login?callback=" + init.url.pathname);
 			}
 		}
 		throw error;

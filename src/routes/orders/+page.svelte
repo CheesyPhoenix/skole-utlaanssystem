@@ -9,7 +9,7 @@
 </script>
 
 <h1 class="text-lg mb-4">
-	{data.user.type === UserType.NORMAL
+	{data.user.type === UserType.STUDENT
 		? "My active orders"
 		: "All active orders"}
 </h1>

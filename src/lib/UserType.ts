@@ -1,6 +1,6 @@
 export enum UserType {
 	UNAUTHENTICATED,
-	NORMAL,
+	STUDENT,
 	TEACHER,
 	ADMIN,
 }
