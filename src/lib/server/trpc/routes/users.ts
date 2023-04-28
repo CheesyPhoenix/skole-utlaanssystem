@@ -20,8 +20,20 @@ export const users = t.router({
 		};
 	}),
 	teachers: t.procedure.use(adminRoute).query(async () => {
-		return await prisma.user.findMany({ where: { isTeacher: true } });
+		return await prisma.user.findMany({
+			where: { isTeacher: true },
+			select: { id: true, name: true },
+		});
 	}),
+	getTeacher: t.procedure
+		.use(adminRoute)
+		.input(z.object({ teacherId: z.number().nonnegative() }))
+		.query(async ({ input }) => {
+			return await prisma.user.findUnique({
+				where: { id: input.teacherId },
+				select: { id: true, name: true },
+			});
+		}),
 	changePass: t.procedure
 		.use(normalRoute)
 		.input(z.object({ newPassword: z.string().nonempty() }))
