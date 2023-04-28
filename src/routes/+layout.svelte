@@ -65,7 +65,7 @@
 			label: "Admin",
 			icon: "twitter-checkmark",
 			pathname: "/admin",
-			authLevel: UserType.NORMAL,
+			authLevel: UserType.ADMIN,
 		},
 	];
 
