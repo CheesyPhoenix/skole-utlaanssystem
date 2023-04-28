@@ -7,14 +7,17 @@
    viewBox="0 0 512 512"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="favicon.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="VG2/Utvikling/skole-utlaanssystem/static/favicon.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
-     id="namedview7"
+     id="namedview12"
      pagecolor="#505050"
      bordercolor="#eeeeee"
      borderopacity="1"
@@ -22,75 +25,70 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
-     inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="0.85058594"
-     inkscape:cx="132.26177"
-     inkscape:cy="128.14696"
+     inkscape:zoom="1.7011719"
+     inkscape:cx="255.70608"
+     inkscape:cy="256.88174"
      inkscape:window-width="1920"
      inkscape:window-height="1007"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="svg5" />
   <defs
-     id="defs2">
-    <marker
-       style="overflow:visible"
-       id="TriangleStart"
-       refX="0"
-       refY="0"
-       orient="auto-start-reverse"
-       inkscape:stockid="TriangleStart"
-       markerWidth="5.3244081"
-       markerHeight="6.155385"
-       viewBox="0 0 5.3244081 6.1553851"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="M 5.77,0 -2.88,5 V -5 Z"
-         id="path135" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="TriangleStart-3"
-       refX="0"
-       refY="0"
-       orient="auto-start-reverse"
-       inkscape:stockid="TriangleStart"
-       markerWidth="5.3244081"
-       markerHeight="6.155385"
-       viewBox="0 0 5.3244081 6.1553851"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="M 5.77,0 -2.88,5 V -5 Z"
-         id="path135-6" />
-    </marker>
-  </defs>
+     id="defs2" />
   <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1">
+     id="g1233"
+     transform="translate(0.0256612,1.1756359)">
     <path
-       style="fill:#618ba0;fill-opacity:1;stroke:#618ba0;stroke-width:20;stroke-dasharray:none;marker-start:url(#TriangleStart);stroke-opacity:1"
-       d="M 125.74267,194.44615 H 457.27883 Z"
+       style="display:inline;fill:#618ba0;fill-opacity:1;stroke:#618ba0;stroke-width:20;stroke-dasharray:none;stroke-opacity:1"
+       d="M 90.23192,316.37888 H 421.76808 Z"
+       id="path1121" />
+    <path
+       style="display:inline;fill:#618ba0;fill-opacity:1;stroke:#618ba0;stroke-width:20;stroke-dasharray:none;stroke-opacity:1"
+       d="M 90.23192,193.2698 H 421.76808 Z"
        id="path2265" />
-    <path
-       style="fill:#618ba0;fill-opacity:1;stroke:#618ba0;stroke-width:20;stroke-dasharray:none;marker-start:url(#TriangleStart-3);stroke-opacity:1"
-       d="M 386.25733,317.55385 H 54.721175 Z"
-       id="path2265-7" />
     <circle
-       style="fill:#8ba061;fill-opacity:1;stroke:#a0618b;stroke-width:14.569;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;fill:#8ba061;fill-opacity:1;stroke:#a0618b;stroke-width:14.569;stroke-dasharray:none;stroke-opacity:1"
        id="path2440"
        cx="256"
-       cy="256"
+       cy="254.82434"
        r="61.554539" />
+    <path
+       sodipodi:type="star"
+       style="fill:#618ba0;fill-opacity:1;stroke:#618ba0;stroke-width:5;stroke-opacity:1"
+       id="path924"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="457.27884"
+       sodipodi:cy="317.55386"
+       sodipodi:r1="71.507278"
+       sodipodi:r2="35.753639"
+       sodipodi:arg1="-2.1047425"
+       sodipodi:arg2="-1.057545"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 420.88634,256.00001 107.89595,60.81395 -106.6144,63.03366 z"
+       inkscape:transform-center-x="-17.859057"
+       inkscape:transform-center-y="0.020506278"
+       transform="rotate(0.56000232,552.42988,-5271.216)" />
+    <path
+       sodipodi:type="star"
+       style="fill:#618ba0;fill-opacity:1;stroke:#618ba0;stroke-width:5;stroke-opacity:1"
+       id="path924-3"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="457.27884"
+       sodipodi:cy="317.55386"
+       sodipodi:r1="71.507278"
+       sodipodi:r2="35.753639"
+       sodipodi:arg1="-2.1047425"
+       sodipodi:arg2="-1.057545"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 420.88634,256.00001 107.89595,60.81395 -106.6144,63.03366 z"
+       inkscape:transform-center-x="17.835034"
+       inkscape:transform-center-y="0.048250146"
+       transform="rotate(-179.32982,282.92001,256.40363)" />
   </g>
 </svg>
