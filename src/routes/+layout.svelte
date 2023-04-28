@@ -26,13 +26,26 @@
 		pathname: string;
 		icon: ComponentProps<Icon>["type"];
 		label: string;
+		authLevel: typeof data.user.type;
 	}[] = [
-		{ label: "Home", icon: "home", pathname: "/" },
-		{ label: "Devices", icon: "electronic-chip", pathname: "/overview" },
+		{ label: "Home", icon: "home", pathname: "/", authLevel: "NORMAL" },
+		{
+			label: "Devices",
+			icon: "electronic-chip",
+			pathname: "/overview",
+			authLevel: "NORMAL",
+		},
 		{
 			label: data.user.type === "NORMAL" ? "My Orders" : "Orders",
 			icon: "shopping-bag",
 			pathname: "/orders",
+			authLevel: "NORMAL",
+		},
+		{
+			label: "Admin",
+			icon: "twitter-checkmark",
+			pathname: "/admin",
+			authLevel: "ADMIN",
 		},
 	];
 
@@ -79,15 +92,17 @@
 			>
 				<AppRail selected={storeRail}>
 					{#each locations as location, i}
-						<AppRailTile
-							label={location.label}
-							tag="a"
-							href={location.pathname}
-							value={i}
-							class="duration-200"
-						>
-							<Icon type={location.icon} />
-						</AppRailTile>
+						{#if location.authLevel === data.user.type}
+							<AppRailTile
+								label={location.label}
+								tag="a"
+								href={location.pathname}
+								value={i}
+								class="duration-200"
+							>
+								<Icon type={location.icon} />
+							</AppRailTile>
+						{/if}
 					{/each}
 				</AppRail>
 			</div>
