@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { UserType } from "$lib/UserType";
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import OrderList from "../OrderList.svelte";
 	import type { PageData } from "./$types";
@@ -7,7 +8,9 @@
 </script>
 
 <h1 class="text-lg mb-4">
-	{data.user.type === "NORMAL" ? "My inactive orders" : "All active orders"}
+	{data.user.type === UserType.NORMAL
+		? "My inactive orders"
+		: "All active orders"}
 </h1>
 <LinkButton href="/../" relative>View active orders</LinkButton>
 
