@@ -8,8 +8,8 @@
 	{#each orders as order}
 		<a href="/orders/{order.id}" class="card card-hover block p-4 mb-2">
 			<div>
-				<p>
-					{order.Device.Type.name}
+				<p class="opacity-70">
+					#{order.id} - {order.User.name}
 					<span class="opacity-70 float-right"
 						>{order.isDelivered
 							? "DELIVERED"
@@ -19,6 +19,9 @@
 							? "RETURNED"
 							: "STATUS MISSING"}</span
 					>
+				</p>
+				<p class="font-semibold">
+					{order.Device.Type.name}
 				</p>
 				<ul class="ml-2">
 					{#each order.Addons as addon}
