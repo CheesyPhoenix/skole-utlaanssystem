@@ -7,7 +7,7 @@
 
 <a
 	href={relative ? $page.url.pathname + href : href}
-	class="btn variant-filled-primary"
+	class="btn variant-filled-primary {$$props.class}"
 >
 	<slot />
 </a>
