@@ -11,6 +11,7 @@
 		AppRailTile,
 		AppShell,
 		Avatar,
+		Modal,
 		storePopup,
 	} from "@skeletonlabs/skeleton";
 
@@ -47,19 +48,19 @@
 			label: "Home",
 			icon: "home",
 			pathname: "/",
-			authLevel: UserType.NORMAL,
+			authLevel: UserType.STUDENT,
 		},
 		{
 			label: "Devices",
 			icon: "electronic-chip",
 			pathname: "/overview",
-			authLevel: UserType.NORMAL,
+			authLevel: UserType.STUDENT,
 		},
 		{
-			label: data.user.type === UserType.NORMAL ? "My Orders" : "Orders",
+			label: data.user.type === UserType.STUDENT ? "My Orders" : "Orders",
 			icon: "shopping-bag",
 			pathname: "/orders",
-			authLevel: UserType.NORMAL,
+			authLevel: UserType.STUDENT,
 		},
 		{
 			label: "Admin",
@@ -77,6 +78,8 @@
 		locations.findIndex((x) => x.pathname === $page.url.pathname)
 	);
 </script>
+
+<Modal />
 
 <AppShell slotSidebarLeft="">
 	<svelte:fragment slot="header">

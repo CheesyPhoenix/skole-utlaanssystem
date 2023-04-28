@@ -120,6 +120,6 @@ export const auth = t.router({
 			return { type: UserType.ADMIN, name: user.name } as const;
 		if (user.isTeacher)
 			return { type: UserType.TEACHER, name: user.name } as const;
-		return { type: UserType.NORMAL, name: user.name } as const;
+		return { type: UserType.STUDENT, name: user.name } as const;
 	}),
 });

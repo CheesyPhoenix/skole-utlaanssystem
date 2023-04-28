@@ -1,65 +1,53 @@
 <script lang="ts">
-	import { page } from "$app/stores";
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
+	import { modalStore } from "@skeletonlabs/skeleton";
 	import type { PageData } from "./$types";
+	import ChangePassword from "./ChangePassword.svelte";
+	import { UserType } from "$lib/UserType";
 
 	export let data: PageData;
 
-	let newPassword: string;
-
-	let result: { message: string; success: boolean } | undefined = undefined;
-
-	async function update() {
-		await tAuthSafe($page, async (trpc) => {
-			const res = await trpc.users.changePass.mutate({
-				newPassword,
-			});
-			result = res;
-		});
+	async function deleteAccount() {
+		//TODO
 	}
 
-	async function deleteAccount() {
-		// TODO
+	function deleteAccountPromt() {
+		modalStore.trigger({
+			type: "confirm",
+			title: "Delete account",
+			body: "Are you sure you want to delete your account?",
+			response: (r) => r && deleteAccount,
+		});
 	}
 </script>
 
-<main class="m-2">
-	<h1 class="text-xl font-bold mb-2">Account</h1>
-	<h2 class="text-lg mb-2">Hello {data.user.name}!</h2>
+<h1>Account</h1>
 
-	<LinkButton href="/api/clearSession">Logout</LinkButton>
+{#if data.user.type === UserType.UNAUTHENTICATED}
+	<p>You are not logged in</p>
+{:else}
+	<div class="card p-4 mt-2">
+		<h3 class="mb-2">
+			{data.user.name}
+			<span class="opacity-70 float-right"
+				>{UserType[data.user.type]}</span
+			>
+		</h3>
 
-	<h2 class="text-lg mb-2">Change password</h2>
-	<form on:submit|preventDefault={update}>
-		<label for="newPassword">New password</label>
-		<input type="password" name="newPassword" bind:value={newPassword} />
+		<LinkButton href="/api/clearSession">Logout</LinkButton>
 
-		{#if result}
-			<p class={result.success ? "bg-green-600" : "bg-red-600"}>
-				{result.message}
-			</p>
-		{/if}
-
-		<button type="submit" class="block bg-slate-600 p-2 rounded-lg mt-2"
-			>Submit</button
+		<button
+			class="btn variant-filled-warning ml-1 mr-1"
+			on:click={() =>
+				modalStore.trigger({
+					type: "component",
+					component: { ref: ChangePassword },
+				})}>Change Password</button
 		>
-	</form>
 
-	<h2 class="text-lg mb2">
-		WARNING! This button will delete your account! Deleteing your account is
-		a permanent action, and all your orders will be cancelled. You can
-		always re-register at a later date.
-	</h2>
-	<form on:submit|preventDefault={deleteAccount}>
-		<button type="submit" class="block bg-red-700 p-2 rounded-lg mt-2"
+		<button class="btn variant-filled-error" on:click={deleteAccountPromt}
 			>Delete my account</button
 		>
-	</form>
-</main>
-
-<style lang="postcss">
-	input {
-		@apply text-slate-900;
-	}
-</style>
+	</div>
+{/if}
