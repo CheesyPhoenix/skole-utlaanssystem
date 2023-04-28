@@ -94,7 +94,7 @@
 		{/if}
 	</svelte:fragment>
 	<!-- Router Slot -->
-	<main class="p-4">
+	<main class="p-4 mt-8 mb-8 max-w-6xl m-auto">
 		<slot />
 	</main>
 	<!-- ---- / ---- -->

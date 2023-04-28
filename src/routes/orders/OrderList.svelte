@@ -1,15 +1,12 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 
-	export let data: PageData;
+	export let orders: PageData["activeOrders"] | PageData["inactiveOrders"];
 </script>
 
 <div class="m-4 max-w-2xl">
-	{#each data.orders as order}
-		<a
-			href="/orders/{order.id}"
-			class="block p-2 bg-slate-700 mb-2 rounded-lg hover:bg-slate-600 active:bg-slate-800 duration-200"
-		>
+	{#each orders as order}
+		<a href="/orders/{order.id}" class="card card-hover block p-4 mb-2">
 			<div>
 				<p>
 					{order.Device.Type.name}
