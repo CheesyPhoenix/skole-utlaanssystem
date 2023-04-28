@@ -3,5 +3,8 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async (event) =>
 	tAuthSafe(event, async (trpc) => {
-		return { orders: await trpc.orders.listActive.query() };
+		return {
+			activeOrders: await trpc.orders.listActive.query(),
+			inactiveOrders: await trpc.orders.listInactive.query(),
+		};
 	});

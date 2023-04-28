@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 	import type { PageData } from "./$types";
 
@@ -25,9 +26,11 @@
 	}
 </script>
 
-<a href="./" class="block m-2">Oh sh*t, go back</a>
-
 <main class="m-2 max-w-2xl pt-2">
+	<LinkButton href="/../" relative class="mb-4">Go back</LinkButton>
+
+	<br />
+
 	<h1 class="text-xl font-bold mb-2 inline-block">{data.deviceType.name}</h1>
 
 	<button
