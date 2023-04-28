@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 	import type { PageData } from "./$types";
 
@@ -26,6 +27,8 @@
 <main class="m-2">
 	<h1 class="text-xl font-bold mb-2">Account</h1>
 	<h2 class="text-lg mb-2">Hello {data.user.name}!</h2>
+
+	<LinkButton href="/api/clearSession">Logout</LinkButton>
 
 	<h2 class="text-lg mb-2">Change password</h2>
 	<form on:submit|preventDefault={update}>

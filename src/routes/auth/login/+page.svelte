@@ -32,32 +32,38 @@
 	}
 </script>
 
-<form on:submit|preventDefault={submit}>
-	<label for="username">Username</label>
-	<input type="text" name="username" bind:value={username} />
+<div class="card p-4 m-auto max-w-md text-token mt-16">
+	<form on:submit|preventDefault={submit}>
+		<label class="label">
+			<span>Username</span>
+			<input
+				class="input"
+				type="text"
+				placeholder="Username..."
+				bind:value={username}
+			/>
+		</label>
 
-	<br />
+		<label class="label">
+			<span>Password</span>
+			<input
+				type="password"
+				class="input"
+				placeholder="Password..."
+				bind:value={password}
+			/>
+		</label>
 
-	<label for="password">Password</label>
-	<input type="password" name="password" bind:value={password} />
+		{#if result}
+			<p class={result.success ? "bg-green-600" : "bg-red-600"}>
+				{result.message}
+			</p>
+		{/if}
 
-	{#if result}
-		<p class={result.success ? "bg-green-600" : "bg-red-600"}>
-			{result.message}
-		</p>
-	{/if}
+		<button type="submit" class="btn variant-filled-primary mt-4"
+			>Login</button
+		>
 
-	<button type="submit" class="block bg-slate-600 p-2 rounded-lg mt-2"
-		>Login</button
-	>
-</form>
-
-<a href="{$page.url.origin}/auth/register"
-	>Don't have an account? Register here</a
->
-
-<style lang="postcss">
-	input {
-		@apply text-slate-900;
-	}
-</style>
+		<a href="/auth/register" class="btn variant-soft-primary">Register</a>
+	</form>
+</div>

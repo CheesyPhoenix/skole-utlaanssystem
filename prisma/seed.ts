@@ -14,10 +14,16 @@ async function main() {
 				"No default admin user created; no default admin password was set. (env: DEFAULT_ADMIN_PASSWORD)"
 			);
 		} else {
-			await prisma.user.create({
-				data: {
+			await prisma.user.upsert({
+				where: { name: "admin" },
+				update: {
+					isAdmin: true,
+					passwordHash: bcrypt.hashSync(defaultAdminPass, 10),
+				},
+				create: {
 					name: "admin",
 					passwordHash: bcrypt.hashSync(defaultAdminPass, 10),
+					isAdmin: true,
 				},
 			});
 
@@ -91,10 +97,14 @@ async function main() {
 		});
 		await prisma.user.upsert({
 			where: { name: "Teacher" },
-			update: { passwordHash: bcrypt.hashSync("Teacher", 10) },
+			update: {
+				passwordHash: bcrypt.hashSync("Teacher", 10),
+				isTeacher: true,
+			},
 			create: {
 				name: "Teacher",
 				passwordHash: bcrypt.hashSync("Teacher", 10),
+				isTeacher: true,
 			},
 		});
 

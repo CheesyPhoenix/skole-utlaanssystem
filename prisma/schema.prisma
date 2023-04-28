@@ -45,7 +45,7 @@ model Order {
   Addons      Addon[]
   isReserved  Boolean @default(true)
   isDelivered Boolean @default(false)
-  isReturend  Boolean @default(false)
+  isReturned  Boolean @default(false)
   userId      Int
   deviceId    Int
 }

@@ -1,7 +1,13 @@
 <script lang="ts">
+	import { page } from "$app/stores";
+
 	export let href: string;
+	export let relative: true | undefined = undefined;
 </script>
 
-<a {href} class="p-2 bg-slate-600 rounded-xl">
+<a
+	href={relative ? $page.url.pathname + href : href}
+	class="btn variant-filled-primary"
+>
 	<slot />
 </a>
