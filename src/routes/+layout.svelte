@@ -19,6 +19,7 @@
 	import Icon from "$lib/components/Icon.svelte";
 	import type { ComponentProps } from "svelte";
 	import { slide } from "svelte/transition";
+	import { UserType } from "$lib/UserType";
 
 	export let data: LayoutData;
 
@@ -26,13 +27,31 @@
 		pathname: string;
 		icon: ComponentProps<Icon>["type"];
 		label: string;
+		authLevel: typeof data.user.type;
 	}[] = [
-		{ label: "Home", icon: "home", pathname: "/" },
-		{ label: "Devices", icon: "electronic-chip", pathname: "/overview" },
 		{
-			label: data.user.type === "NORMAL" ? "My Orders" : "Orders",
+			label: "Home",
+			icon: "home",
+			pathname: "/",
+			authLevel: UserType.NORMAL,
+		},
+		{
+			label: "Devices",
+			icon: "electronic-chip",
+			pathname: "/overview",
+			authLevel: UserType.NORMAL,
+		},
+		{
+			label: data.user.type === UserType.NORMAL ? "My Orders" : "Orders",
 			icon: "shopping-bag",
 			pathname: "/orders",
+			authLevel: UserType.NORMAL,
+		},
+		{
+			label: "Admin",
+			icon: "twitter-checkmark",
+			pathname: "/admin",
+			authLevel: UserType.NORMAL,
 		},
 	];
 
@@ -57,7 +76,7 @@
 			<svelte:fragment slot="trail">
 				<a href="/account">
 					<Avatar
-						initials={data.user.type !== "UNAUTHENTICATED"
+						initials={data.user.type !== UserType.UNAUTHENTICATED
 							? data.user.name
 							: ""}
 						border="border-4 border-surface-300-600-token hover:!border-primary-500 {$page
@@ -71,7 +90,7 @@
 		</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		{#if data.user.type !== "UNAUTHENTICATED"}
+		{#if data.user.type !== UserType.UNAUTHENTICATED}
 			<div
 				in:slide={{ axis: "x" }}
 				out:slide={{ axis: "x" }}
@@ -79,15 +98,17 @@
 			>
 				<AppRail selected={storeRail}>
 					{#each locations as location, i}
-						<AppRailTile
-							label={location.label}
-							tag="a"
-							href={location.pathname}
-							value={i}
-							class="duration-200"
-						>
-							<Icon type={location.icon} />
-						</AppRailTile>
+						{#if location.authLevel <= data.user.type}
+							<AppRailTile
+								label={location.label}
+								tag="a"
+								href={location.pathname}
+								value={i}
+								class="duration-200"
+							>
+								<Icon type={location.icon} />
+							</AppRailTile>
+						{/if}
 					{/each}
 				</AppRail>
 			</div>
