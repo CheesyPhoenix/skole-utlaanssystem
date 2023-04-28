@@ -27,6 +27,7 @@
 
 	<h2 class="mt-4">
 		Order #{data.order.id}
+		<span class="opacity-70 text-xl"> by {data.order.User.name}</span>
 		<span class="float-right relative">
 			{#if data.user.type >= UserType.TEACHER && !data.order.isReturned}
 				<button
