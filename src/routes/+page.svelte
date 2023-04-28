@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { UserType } from "$lib/UserType";
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import type { PageData } from "./$types";
 
@@ -11,12 +12,12 @@
 	<p>Keep track of your inventory</p>
 
 	<div class="mt-2">
-		{#if data.user.type === "UNAUTHENTICATED"}
+		{#if data.user.type === UserType.UNAUTHENTICATED}
 			<LinkButton href="/auth/login">Login</LinkButton>
 			<LinkButton href="/auth/register">Register</LinkButton>
 		{:else}
 			<LinkButton href="/orders"
-				>{data.user.type === "NORMAL"
+				>{data.user.type >= UserType.NORMAL
 					? "My Orders"
 					: "Orders"}</LinkButton
 			>
