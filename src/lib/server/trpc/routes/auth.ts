@@ -4,6 +4,7 @@ import prisma from "$lib/server/prisma/prisma";
 import bcrypt from "bcrypt";
 import { genNewSession } from "$lib/server/utils/genSession";
 import { adminRoute } from "../middleware";
+import { UserType } from "$lib/UserType";
 
 export const auth = t.router({
 	login: t.procedure
@@ -107,16 +108,18 @@ export const auth = t.router({
 			} as const;
 		}),
 	user: t.procedure.query(async ({ ctx }) => {
-		if (ctx.userId === null) return { type: "UNAUTHENTICATED" } as const;
+		if (ctx.userId === null)
+			return { type: UserType.UNAUTHENTICATED } as const;
 
 		const user = await prisma.user.findUnique({
 			where: { id: ctx.userId },
 		});
-		if (user === null) return { type: "UNAUTHENTICATED" } as const;
+		if (user === null) return { type: UserType.UNAUTHENTICATED } as const;
 
-		if (user.isAdmin) return { type: "ADMIN", name: user.name } as const;
+		if (user.isAdmin)
+			return { type: UserType.ADMIN, name: user.name } as const;
 		if (user.isTeacher)
-			return { type: "TEACHER", name: user.name } as const;
-		return { type: "NORMAL", name: user.name } as const;
+			return { type: UserType.TEACHER, name: user.name } as const;
+		return { type: UserType.NORMAL, name: user.name } as const;
 	}),
 });
