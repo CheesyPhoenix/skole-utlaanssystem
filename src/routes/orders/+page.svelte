@@ -3,12 +3,15 @@
 	import type { PageData } from "./$types";
 	import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 	import { orderTab } from "$lib/stores/orderTab";
+	import { UserType } from "$lib/UserType";
 
 	export let data: PageData;
 </script>
 
-<h1 class="mb-2">
-	{data.user.type === "NORMAL" ? "My active orders" : "All active orders"}
+<h1 class="text-lg mb-4">
+	{data.user.type === UserType.NORMAL
+		? "My active orders"
+		: "All active orders"}
 </h1>
 
 <TabGroup>
