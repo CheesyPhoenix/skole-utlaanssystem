@@ -41,7 +41,7 @@
 			</p>
 		{/if}
 
-		<button type="submit" class="block bg-slate-600 p-2 rounded-lg mt-2"
+		<button type="submit" class="block btn variant-filled-primary"
 			>Submit</button
 		>
 	</form>
@@ -52,7 +52,7 @@
 		always re-register at a later date.
 	</h2>
 	<form on:submit|preventDefault={deleteAccount}>
-		<button type="submit" class="block bg-red-700 p-2 rounded-lg mt-2"
+		<button type="submit" class="block btn variant-filled-error"
 			>Delete my account</button
 		>
 	</form>

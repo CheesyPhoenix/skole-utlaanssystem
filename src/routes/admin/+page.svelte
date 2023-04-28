@@ -1,10 +1,10 @@
 <script>
-	import { page } from "$app/stores";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 </script>
 
 <main class="m-2">
 	<h1 class="text-xl font-bold mb-2">Admin</h1>
 
-	<a href="{$page.url.pathname}/equipment">Manage Equipment</a>
-	<a href="{$page.url.pathname}/teachers">Manage Teachers</a>
+	<LinkButton href="/equipment" relative>Manage Equipment</LinkButton>
+	<LinkButton href="/teachers" relative>Manage Teachers</LinkButton>
 </main>
