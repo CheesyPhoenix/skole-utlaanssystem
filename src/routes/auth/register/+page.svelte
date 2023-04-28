@@ -2,6 +2,7 @@
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
+	import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 	import type { PageData } from "./$types";
 
 	let userType: "STUDENT" | "TEACHER" = "STUDENT";
@@ -34,40 +35,57 @@
 	}
 </script>
 
-<form on:submit|preventDefault={submit}>
-	<input type="radio" bind:group={userType} value="STUDENT" name="student" />
-	<label for="student">Student</label>
+<div class="card p-4 m-auto max-w-md mt-16">
+	<form on:submit|preventDefault={submit}>
+		<TabGroup class="[&>div>label]:w-1/2 mb-2">
+			<Tab bind:group={userType} name="STUDENT" value="STUDENT">
+				Student
+			</Tab>
+			<Tab bind:group={userType} name="TEACHER" value="TEACHER">
+				Teacher
+			</Tab>
+		</TabGroup>
 
-	<br />
+		<label class="label">
+			Username
+			<input
+				type="text"
+				class="input"
+				placeholder="Username..."
+				required
+				bind:value={username}
+			/>
+		</label>
 
-	<input type="radio" bind:group={userType} value="TEACHER" name="teacher" />
-	<label for="teacher">Teacher</label>
+		<label class="label">
+			Password
+			<input
+				type="password"
+				class="input"
+				placeholder="Password..."
+				required
+				bind:value={password}
+			/>
+		</label>
 
-	<br />
+		{#if result}
+			<aside
+				class="{result.success
+					? 'variant-filled-success'
+					: 'variant-filled-error'}
+						alert mt-2
+					"
+			>
+				<div class="alert-message">
+					{result.message}
+				</div>
+			</aside>
+		{/if}
 
-	<label for="username">Username</label>
-	<input type="text" name="username" bind:value={username} />
+		<button type="submit" class="btn variant-filled-primary mt-4"
+			>Register</button
+		>
 
-	<br />
-
-	<label for="password">Password</label>
-	<input type="password" name="password" bind:value={password} />
-
-	{#if result}
-		<p class={result.success ? "bg-green-600" : "bg-red-600"}>
-			{result.message}
-		</p>
-	{/if}
-
-	<button type="submit" class="block bg-slate-600 p-2 rounded-lg mt-2"
-		>Register</button
-	>
-</form>
-
-<a href="{$page.url.origin}/auth/login">Already have an account? Log in here</a>
-
-<style lang="postcss">
-	input {
-		@apply text-slate-900;
-	}
-</style>
+		<a href="/auth/login" class="btn variant-soft-primary">Login</a>
+	</form>
+</div>
