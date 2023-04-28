@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from "$app/stores";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
@@ -8,7 +7,7 @@
 <div class="m-4 max-w-2xl">
 	{#each data.orders as order}
 		<a
-			href="{$page.url.pathname}/{order.id}"
+			href="/orders/{order.id}"
 			class="block p-2 bg-slate-700 mb-2 rounded-lg hover:bg-slate-600 active:bg-slate-800 duration-200"
 		>
 			<div>
