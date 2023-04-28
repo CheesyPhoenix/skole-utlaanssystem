@@ -11,7 +11,21 @@
 		AppRailTile,
 		AppShell,
 		Avatar,
+		storePopup,
 	} from "@skeletonlabs/skeleton";
+
+	// floatingUI
+	import {
+		computePosition,
+		autoUpdate,
+		flip,
+		shift,
+		offset,
+		arrow,
+	} from "@floating-ui/dom";
+
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	//--
 
 	import { page } from "$app/stores";
 	import { writable, type Writable } from "svelte/store";
