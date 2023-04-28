@@ -27,10 +27,10 @@
 
 	<h2 class="mt-4">
 		Order #{data.order.id}
-		<span class="float-right">
+		<span class="float-right relative">
 			{#if data.user.type >= UserType.TEACHER && !data.order.isReturned}
 				<button
-					class="btn variant-filled-secondary"
+					class="btn variant-filled-secondary absolute right-0 top-[-8px]"
 					use:popup={{
 						event: "focus-click",
 						target: "order-status",
@@ -88,7 +88,7 @@
 		</span>
 	</h2>
 
-	<div class="card p-4 mt-6">
+	<div class="card p-4 mt-4">
 		<h3>
 			{data.order.Device.Type.name}
 			<span class="opacity-70">ID: {data.order.Device.id}</span>

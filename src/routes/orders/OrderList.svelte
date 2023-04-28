@@ -4,7 +4,7 @@
 	export let orders: PageData["activeOrders"] | PageData["inactiveOrders"];
 </script>
 
-<div class="m-4 max-w-2xl">
+<div class="m-4">
 	{#each orders as order}
 		<a href="/orders/{order.id}" class="card card-hover block p-4 mb-2">
 			<div>
