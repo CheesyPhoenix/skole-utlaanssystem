@@ -16,13 +16,13 @@
 			<LinkButton href="/auth/login">Login</LinkButton>
 			<LinkButton href="/auth/register">Register</LinkButton>
 		{:else}
-			<LinkButton href="/orders"
+			<!-- <LinkButton href="/orders"
 				>{data.user.type >= UserType.NORMAL
 					? "My Orders"
 					: "Orders"}</LinkButton
 			>
 			<LinkButton href="/overview">Equipment Overview</LinkButton>
-			<LinkButton href="/account">Manage Account</LinkButton>
+			<LinkButton href="/account">Manage Account</LinkButton> -->
 		{/if}
 	</div>
 </div>
