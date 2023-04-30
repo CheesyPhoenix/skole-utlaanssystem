@@ -1,15 +1,27 @@
 <script lang="ts">
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
-	import { modalStore } from "@skeletonlabs/skeleton";
+	import { modalStore, toastStore } from "@skeletonlabs/skeleton";
 	import type { PageData } from "./$types";
 	import ChangePassword from "./ChangePassword.svelte";
 	import { UserType } from "$lib/UserType";
+	import { page } from "$app/stores";
+	import { goto } from "$app/navigation";
 
 	export let data: PageData;
 
 	async function deleteAccount() {
-		//TODO
+		tAuthSafe($page, async (trpc) => {
+			const res = await trpc.auth.deleteMe.mutate();
+			toastStore.trigger({
+				message: res,
+				background:
+					"variant-filled-" +
+					(res === "Account deleted" ? "success" : "error"),
+				autohide: false,
+			});
+			if (res === "Account deleted") await goto("/api/clearSession");
+		});
 	}
 
 	function deleteAccountPromt() {
@@ -17,7 +29,9 @@
 			type: "confirm",
 			title: "Delete account",
 			body: "Are you sure you want to delete your account?",
-			response: (r) => r && deleteAccount,
+			buttonTextConfirm: "Delete account",
+			modalClasses: "[&>footer>.variant-filled]:variant-filled-error",
+			response: (r) => r && deleteAccount(),
 		});
 	}
 </script>

@@ -2,7 +2,7 @@
 	import { page } from "$app/stores";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 	import type { trpc } from "$lib/trpc-client/client";
-	import { modalStore } from "@skeletonlabs/skeleton";
+	import { modalStore, toastStore } from "@skeletonlabs/skeleton";
 	import { slide } from "svelte/transition";
 
 	let result:
@@ -20,7 +20,13 @@
 			const res = await trpc.users.changePass.mutate({
 				newPassword,
 			});
-			result = res;
+			toastStore.trigger({
+				message: res.message,
+				autohide: true,
+				timeout: 5000,
+				background:
+					"variant-filled-" + (res.success ? "success" : "error"),
+			});
 
 			if (res.success) {
 				modalStore.close();
