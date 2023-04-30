@@ -13,6 +13,7 @@
 		Avatar,
 		Modal,
 		storePopup,
+		Toast,
 	} from "@skeletonlabs/skeleton";
 
 	// floatingUI
@@ -33,17 +34,12 @@
 	import type { LayoutData } from "./$types";
 	import Icon from "$lib/components/Icon.svelte";
 	import type { ComponentProps } from "svelte";
-	import { slide } from "svelte/transition";
+	import { scale, slide } from "svelte/transition";
 	import { UserType } from "$lib/UserType";
 
 	export let data: LayoutData;
 
-	let locations: {
-		pathname: string;
-		icon: ComponentProps<Icon>["type"];
-		label: string;
-		authLevel: typeof data.user.type;
-	}[] = [
+	$: locations = [
 		{
 			label: "Home",
 			icon: "home",
@@ -68,10 +64,17 @@
 			pathname: "/admin",
 			authLevel: UserType.ADMIN,
 		},
-	];
+	] as {
+		pathname: string;
+		icon: ComponentProps<Icon>["type"];
+		label: string;
+		authLevel: typeof data.user.type;
+	}[];
 
 	const storeRail: Writable<number> = writable(
-		locations.findIndex((x) => x.pathname === $page.url.pathname)
+		locations
+			? locations.findIndex((x) => x.pathname === $page.url.pathname)
+			: 0
 	);
 
 	$: storeRail.set(
@@ -80,6 +83,7 @@
 </script>
 
 <Modal />
+<Toast position="br" />
 
 <AppShell slotSidebarLeft="">
 	<svelte:fragment slot="header">
@@ -91,18 +95,18 @@
 			</svelte:fragment>
 			<h2 class="ml-2">Utlånssystem</h2>
 			<svelte:fragment slot="trail">
-				<a href="/account">
-					<Avatar
-						initials={data.user.type !== UserType.UNAUTHENTICATED
-							? data.user.name
-							: ""}
-						border="border-4 border-surface-300-600-token hover:!border-primary-500 {$page
-							.url.pathname === '/account' &&
-							'!border-primary-500'}"
-						cursor="cursor-pointer"
-						width="w-12"
-					/>
-				</a>
+				{#if data.user.type !== UserType.UNAUTHENTICATED}
+					<a href="/account" in:scale out:scale>
+						<Avatar
+							initials={data.user.name}
+							border="border-4 border-surface-300-600-token hover:!border-primary-500 {$page
+								.url.pathname === '/account' &&
+								'!border-primary-500'}"
+							cursor="cursor-pointer"
+							width="w-12"
+						/>
+					</a>
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
