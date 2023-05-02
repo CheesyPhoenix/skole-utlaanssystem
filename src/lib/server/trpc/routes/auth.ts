@@ -3,7 +3,7 @@ import { t } from "../t";
 import prisma from "$lib/server/prisma/prisma";
 import bcrypt from "bcrypt";
 import { genNewSession } from "$lib/server/utils/genSession";
-import { adminRoute } from "../middleware";
+import { adminRoute, normalRoute } from "../middleware";
 import { UserType } from "$lib/UserType";
 
 export const auth = t.router({
@@ -120,6 +120,33 @@ export const auth = t.router({
 			return { type: UserType.ADMIN, name: user.name } as const;
 		if (user.isTeacher)
 			return { type: UserType.TEACHER, name: user.name } as const;
-		return { type: UserType.NORMAL, name: user.name } as const;
+		return { type: UserType.STUDENT, name: user.name } as const;
+	}),
+	deleteMe: t.procedure.use(normalRoute).mutation(async ({ ctx }) => {
+		if (ctx.user.isAdmin) {
+			const admins = await prisma.user.findMany({
+				where: { isAdmin: true },
+				select: { _count: true },
+			});
+
+			if (admins.length < 2)
+				return "You are the last admin, and thusly cannot be removed" as const;
+		}
+
+		const orders = await prisma.order.findFirst({
+			where: { userId: ctx.user.id, isDelivered: true },
+		});
+		if (orders !== null)
+			return "You still have outstanding orders that have not been returned (status: Delivered). You cannot delete your account before this." as const;
+
+		await prisma.order.deleteMany({
+			where: { userId: ctx.user.id, isDelivered: false },
+		});
+
+		await prisma.user.delete({
+			where: { id: ctx.user.id },
+		});
+
+		return "Account deleted" as const;
 	}),
 });

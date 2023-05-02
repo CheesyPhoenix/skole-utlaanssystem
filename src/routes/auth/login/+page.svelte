@@ -32,7 +32,7 @@
 	}
 </script>
 
-<div class="card p-4 m-auto max-w-md text-token mt-16">
+<div class="card p-4 m-auto max-w-md mt-16">
 	<form on:submit|preventDefault={submit}>
 		<label class="label">
 			<span>Username</span>
@@ -40,6 +40,7 @@
 				class="input"
 				type="text"
 				placeholder="Username..."
+				required
 				bind:value={username}
 			/>
 		</label>
@@ -50,14 +51,23 @@
 				type="password"
 				class="input"
 				placeholder="Password..."
+				required
 				bind:value={password}
 			/>
 		</label>
 
 		{#if result}
-			<p class={result.success ? "bg-green-600" : "bg-red-600"}>
-				{result.message}
-			</p>
+			<aside
+				class="{result.success
+					? 'variant-filled-success'
+					: 'variant-filled-error'}
+						alert mt-2
+					"
+			>
+				<div class="alert-message">
+					{result.message}
+				</div>
+			</aside>
 		{/if}
 
 		<button type="submit" class="btn variant-filled-primary mt-4"

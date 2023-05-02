@@ -47,7 +47,7 @@ export const users = t.router({
 
 			return {
 				success: true,
-				message: "Password changed successfully",
+				message: "Password changed successfully!",
 			} as const;
 		}),
 });

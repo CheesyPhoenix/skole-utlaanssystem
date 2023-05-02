@@ -14,6 +14,7 @@ export const orders = t.router({
 				include: {
 					Device: { select: { id: true, Type: true } },
 					Addons: { select: { id: true, Type: true } },
+					User: { select: { id: true, name: true } },
 				},
 			});
 		}
@@ -28,6 +29,7 @@ export const orders = t.router({
 			include: {
 				Device: { select: { id: true, Type: true } },
 				Addons: { select: { id: true, Type: true } },
+				User: { select: { id: true, name: true } },
 			},
 		});
 	}),
@@ -42,6 +44,7 @@ export const orders = t.router({
 				include: {
 					Device: { select: { id: true, Type: true } },
 					Addons: { select: { id: true, Type: true } },
+					User: { select: { id: true, name: true } },
 				},
 			});
 		}
@@ -54,6 +57,7 @@ export const orders = t.router({
 			include: {
 				Device: { select: { id: true, Type: true } },
 				Addons: { select: { id: true, Type: true } },
+				User: { select: { id: true, name: true } },
 			},
 		});
 	}),

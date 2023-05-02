@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { invalidate } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { UserType } from "$lib/UserType";
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
+	import { ListBox, ListBoxItem, popup } from "@skeletonlabs/skeleton";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
@@ -20,59 +22,88 @@
 	}
 </script>
 
-<main class="m-4 pt-2 max-w-2xl">
+<div>
 	<LinkButton href="/../" relative>Go back</LinkButton>
 
-	<h1 class="text-xl mt-4 font-semibold">
+	<h2 class="mt-4">
 		Order #{data.order.id}
+		<span class="opacity-70 text-xl"> by {data.order.User.name}</span>
 		<span class="float-right relative">
-			<span class="opacity-70"
-				>{data.order.isDelivered
-					? "DELIVERED"
-					: data.order.isReserved
-					? "RESERVED"
-					: data.order.isReturned
-					? "RETURNED"
-					: "STATUS MISSING"}</span
-			>
-			{#if ["ADMIN", "TEACHER"].includes(data.user.type) && !data.order.isReturned}
-				<div
-					class="absolute rounded-lg bg-slate-700 drop-shadow-lg p-2 w-full text-base opacity-100 bg-opacity-100 z-10"
+			{#if data.user.type >= UserType.TEACHER && !data.order.isReturned}
+				<button
+					class="btn variant-filled-secondary absolute right-0 top-[-8px]"
+					use:popup={{
+						event: "focus-click",
+						target: "order-status",
+						placement: "bottom",
+						closeQuery: ".listbox-item",
+					}}
 				>
-					{#if data.order.isReserved}
-						<button
-							class="opacity-70 hover:underline cursor-pointer"
-							on:click={() => updateStatus("DELIVERED")}
+					{data.order.isDelivered
+						? "DELIVERED"
+						: data.order.isReserved
+						? "RESERVED"
+						: data.order.isReturned
+						? "RETURNED"
+						: "STATUS MISSING"}
+				</button>
+
+				<div
+					class="card w-max shadow-2xl block z-10 text-lg variant-glass-secondary"
+					data-popup="order-status"
+				>
+					<ListBox rounded="rounded-none">
+						{#if data.order.isReserved}
+							<ListBoxItem
+								group={undefined}
+								name="RETURNED"
+								value="RETURNED"
+								class="duration-200"
+								on:click={() => updateStatus("DELIVERED")}
+							>
+								DELIVERED
+							</ListBoxItem>
+						{/if}
+						<ListBoxItem
+							group={undefined}
+							name="RETURNED"
+							value="RETURNED"
+							class="duration-200"
+							on:click={() => updateStatus("RETURNED")}
 						>
-							DELIVERED
-						</button>
-					{/if}
-					<button
-						class="opacity-70 hover:underline cursor-pointer"
-						on:click={() => updateStatus("RETURNED")}
-					>
-						RETURNED
-					</button>
+							RETURNED
+						</ListBoxItem>
+					</ListBox>
 				</div>
+			{:else}
+				<span class="opacity-70"
+					>{data.order.isDelivered
+						? "DELIVERED"
+						: data.order.isReserved
+						? "RESERVED"
+						: data.order.isReturned
+						? "RETURNED"
+						: "STATUS MISSING"}</span
+				>
 			{/if}
 		</span>
-	</h1>
-
-	<h2 class="mt-2 text-lg">
-		{data.order.Device.Type.name}
-		<span class="opacity-70">ID: {data.order.Device.id}</span>
 	</h2>
 
-	<ul class="mt-2">
-		{#each data.order.Addons as addon}
-			<li
-				class="list-disc list-inside p-1 pl-2 pr-2 bg-slate-700 rounded-lg mb-2"
-			>
-				{addon.Type.name}
-				<span class="opacity-70 float-right">ID: {addon.id}</span>
-			</li>
-		{:else}
-			<li class="list-disc list-inside">No addons</li>
-		{/each}
-	</ul>
-</main>
+	<div class="card p-4 mt-4">
+		<h3>
+			{data.order.Device.Type.name}
+			<span class="opacity-70">ID: {data.order.Device.id}</span>
+		</h3>
+
+		<ul class="list mt-2">
+			{#each data.order.Addons as addon}
+				<li class="card !pl-4 !pr-4">
+					<span class="flex-auto">{addon.Type.name}</span>
+					<span class="opacity-70 float-right">ID: {addon.id}</span>
+				</li>
+			{:else}
+				<li class="card">No addons</li>
+			{/each}
+		</ul>
+	</div>
+</div>
