@@ -1,16 +1,28 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import type { PageData } from "./$types";
-
-	import LinkButton from "$lib/components/LinkButton.svelte";
+	import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 
 	export let data: PageData;
+
+	let tab: "REQUESTS" | "TEACHERS" = "REQUESTS";
 </script>
 
-<main class="m-2">
-	<h1 class="text-xl font-bold mb-2">Teachers</h1>
-	{#each data.teachers as teacher}
-		<LinkButton href="/{teacher.id}" relative
-			>Name:{teacher.name}</LinkButton
-		>
-	{/each}
-</main>
+<h2 class="mb-4">Teachers</h2>
+
+<TabGroup>
+	<Tab bind:group={tab} value={"REQUESTS"} name="Requests">Requests</Tab>
+	<Tab bind:group={tab} value={"TEACHERS"} name="Teachers">Teachers</Tab>
+
+	<svelte:fragment slot="panel">
+		{#if tab === "TEACHERS"}
+			{#each data.teachers as teacher}
+				<a
+					href={$page.url.pathname + "/" + teacher.id}
+					class="card card-hover p-4 mb-2 block"
+					>{teacher.name} <span>#{teacher.id}</span></a
+				>
+			{/each}
+		{/if}
+	</svelte:fragment>
+</TabGroup>
