@@ -23,6 +23,15 @@
 					>{teacher.name} <span>#{teacher.id}</span></a
 				>
 			{/each}
+		{:else}
+			{#each data.teacherRequests as teacherRequest}
+				<a
+					href={$page.url.pathname + "/requests/" + teacherRequest.id}
+					class="card card-hover p-4 mb-2 block"
+					>{teacherRequest.name}
+					<span>#{teacherRequest.id}</span></a
+				>
+			{/each}
 		{/if}
 	</svelte:fragment>
 </TabGroup>

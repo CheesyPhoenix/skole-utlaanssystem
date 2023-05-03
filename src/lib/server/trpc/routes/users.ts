@@ -34,6 +34,11 @@ export const users = t.router({
 				select: { id: true, name: true },
 			});
 		}),
+	teacherRequests: t.procedure.use(adminRoute).query(async () => {
+		return await prisma.teacherRequest.findMany({
+			select: { id: true, name: true },
+		});
+	}),
 	changePass: t.procedure
 		.use(normalRoute)
 		.input(z.object({ newPassword: z.string().nonempty() }))

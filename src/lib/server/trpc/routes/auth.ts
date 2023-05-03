@@ -64,7 +64,7 @@ export const auth = t.router({
 				return await genNewSession(user.id);
 			}
 
-			const user = await prisma.teacherRequest.create({
+			await prisma.teacherRequest.create({
 				data: {
 					name: input.username,
 					passwordHash: bcrypt.hashSync(input.password, 10),
@@ -149,4 +149,12 @@ export const auth = t.router({
 
 		return "Account deleted" as const;
 	}),
+	deleteTeacher: t.procedure
+		.use(adminRoute)
+		.input(z.object({ teacherId: z.number().nonnegative() }))
+		.mutation(async ({ input }) => {
+			await prisma.user.delete({
+				where: { id: input.teacherId },
+			});
+		}),
 });

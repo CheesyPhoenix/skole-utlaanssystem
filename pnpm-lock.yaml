@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@floating-ui/dom':
+    specifier: ^1.2.7
+    version: 1.2.7
   '@prisma/client':
     specifier: ^4.13.0
     version: 4.13.0(prisma@4.13.0)
@@ -256,6 +259,16 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
+
+  /@floating-ui/core@1.2.6:
+    resolution: {integrity: sha512-EvYTiXet5XqweYGClEmpu3BoxmsQ4hkj3QaYA6qEnigCWffTP3vNRwBReTdrwDwo7OoJ3wM8Uoe9Uk4n+d4hfg==}
+    dev: false
+
+  /@floating-ui/dom@1.2.7:
+    resolution: {integrity: sha512-DyqylONj1ZaBnzj+uBnVfzdjjCkFCL2aA9ESHLyUOGSqb03RpbLMImP1ekIQXYs4KLk9jAjJfZAU8hXfWSahEg==}
+    dependencies:
+      '@floating-ui/core': 1.2.6
+    dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
