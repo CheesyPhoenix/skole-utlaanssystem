@@ -157,4 +157,12 @@ export const auth = t.router({
 				where: { id: input.teacherId },
 			});
 		}),
+	deleteTeacherRequest: t.procedure
+		.use(adminRoute)
+		.input(z.object({ requestId: z.number().nonnegative() }))
+		.mutation(async ({ input }) => {
+			await prisma.teacherRequest.delete({
+				where: { id: input.requestId },
+			});
+		}),
 });
