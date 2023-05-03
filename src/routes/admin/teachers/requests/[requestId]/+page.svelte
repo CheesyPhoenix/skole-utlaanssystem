@@ -31,6 +31,32 @@
 			response: (r) => r && deleteRequest(),
 		});
 	}
+
+	function approveRequest() {
+		tAuthSafe($page, async (trpc) => {
+			const res = await trpc.auth.approveTeacherRequest.mutate({
+				requestId: data.request.id,
+			});
+			toastStore.trigger({
+				message: res,
+				background:
+					"variant-filled-" +
+					(res === "Request approved" ? "success" : "error"),
+				autohide: false,
+			});
+		});
+	}
+
+	function approvePrompt() {
+		modalStore.trigger({
+			type: "confirm",
+			title: "Approve request",
+			body: "Are you sure you want to approve this request?",
+			buttonTextConfirm: "Approve request",
+			modalClasses: "[&>footer>.variant-filled]:variant-filled-primary",
+			response: (r) => r && approveRequest(),
+		});
+	}
 </script>
 
 <div class="card p-4 mt-2">
@@ -38,7 +64,9 @@
 		{data.request.name}
 		<span class="opacity-70 float-right">#{data.request.id}</span>
 	</h3>
-	<button class="btn variant-filled-primary">Approve</button>
+	<button class="btn variant-filled-primary" on:click={approvePrompt}
+		>Approve</button
+	>
 	<button class="btn variant-filled-error" on:click={deleteRequestPrompt}
 		>Delete request</button
 	>

@@ -156,6 +156,32 @@ export const auth = t.router({
 			await prisma.user.delete({
 				where: { id: input.teacherId },
 			});
+			return "Teacher deleted" as const;
+		}),
+	approveTeacherRequest: t.procedure
+		.use(adminRoute)
+		.input(z.object({ requestId: z.number().nonnegative() }))
+		.mutation(async ({ input }) => {
+			const newTeacher = await prisma.teacherRequest.findUnique({
+				where: { id: input.requestId },
+			});
+
+			if (newTeacher === null)
+				return "Teacher request couldn't be found. What sorcery is this??";
+
+			await prisma.user.create({
+				data: {
+					id: newTeacher.id,
+					name: newTeacher.name,
+					passwordHash: newTeacher.passwordHash,
+					isTeacher: true,
+				},
+			});
+
+			await prisma.teacherRequest.delete({
+				where: { id: input.requestId },
+			});
+			return "Request approved";
 		}),
 	deleteTeacherRequest: t.procedure
 		.use(adminRoute)
@@ -164,5 +190,6 @@ export const auth = t.router({
 			await prisma.teacherRequest.delete({
 				where: { id: input.requestId },
 			});
+			return "Request deleted" as const;
 		}),
 });
