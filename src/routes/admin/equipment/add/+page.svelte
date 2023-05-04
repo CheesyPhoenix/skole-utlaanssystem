@@ -8,7 +8,7 @@
 
 	async function submit() {
 		await tAuthSafe($page, async (trpc) => {
-			result = await trpc.devices.add.mutate({
+			result = await trpc.devices.addDeviceType.mutate({
 				deviceName: deviceName,
 			});
 		});

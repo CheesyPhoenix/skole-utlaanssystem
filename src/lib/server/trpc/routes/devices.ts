@@ -102,7 +102,7 @@ export const devices = t.router({
 				},
 			});
 		}),
-	add: t.procedure
+	addDeviceType: t.procedure
 		.use(adminRoute)
 		.input(z.object({ deviceName: z.string().nonempty() }))
 		.mutation(async ({ input }) => {
@@ -128,6 +128,14 @@ export const devices = t.router({
 				success: true,
 				message: "Device type added successfully",
 			} as const;
+		}),
+	add: t.procedure
+		.use(adminRoute)
+		.input(z.object({ deviceType: z.number().nonnegative() }))
+		.mutation(async ({ input }) => {
+			await prisma.device.create({
+				data: { deviceTypeId: input.deviceType },
+			});
 		}),
 	adminGet: t.procedure
 		.use(adminRoute)

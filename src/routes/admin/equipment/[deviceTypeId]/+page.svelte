@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import LinkButton from "$lib/components/LinkButton.svelte";
+	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
 
-	function addDevice() {
-		throw new Error("Function not implemented.");
+	async function addDevice() {
+		await tAuthSafe($page, async (trpc) => {
+			await trpc.devices.add.mutate({
+				deviceType: data.device.id,
+			});
+		});
 	}
 </script>
 
