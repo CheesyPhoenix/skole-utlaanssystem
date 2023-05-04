@@ -6,11 +6,11 @@ export const load: PageLoad = async (event) =>
 	tAuthSafe(event, async (trpc) => {
 		event.depends("app:device");
 
-		const deviceId = parseInt(event.params.deviceId);
-		if (isNaN(deviceId)) throw error(400);
+		const deviceTypeId = parseInt(event.params.deviceTypeId);
+		if (isNaN(deviceTypeId)) throw error(400);
 
-		const device = await trpc.devices.get.query({
-			deviceTypeId: deviceId,
+		const device = await trpc.devices.adminGet.query({
+			deviceTypeId: deviceTypeId,
 		});
 		if (device === null) throw error(404);
 
