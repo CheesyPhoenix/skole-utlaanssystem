@@ -171,7 +171,6 @@ export const auth = t.router({
 
 			await prisma.user.create({
 				data: {
-					id: newTeacher.id,
 					name: newTeacher.name,
 					passwordHash: newTeacher.passwordHash,
 					isTeacher: true,

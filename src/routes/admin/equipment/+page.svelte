@@ -1,17 +1,19 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 
-	import LinkButton from "$lib/components/LinkButton.svelte";
+	import { page } from "$app/stores";
 
 	export let data: PageData;
 </script>
 
 <main class="m-2">
-	<h1 class="text-xl font-bold mb-2">Equipment</h1>
+	<h2 class="mb-4">Equipment</h2>
 
 	{#each data.devices as device}
-		<LinkButton href="/{device.id}" relative
-			>{device.id}: {device.name}</LinkButton
+		<a
+			href={$page.url.pathname + "/" + device.id}
+			class="card card-hover p-4 mb-2 block"
+			>{device.name} <span>#{device.id}</span></a
 		>
 	{/each}
 </main>
