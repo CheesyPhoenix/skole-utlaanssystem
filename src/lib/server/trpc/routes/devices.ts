@@ -2,6 +2,7 @@ import prisma from "$lib/server/prisma/prisma";
 import { t } from "$lib/server/trpc/t";
 import { z } from "zod";
 import { adminRoute, normalRoute } from "../middleware";
+import { transformDocument } from "@prisma/client/runtime";
 
 export const devices = t.router({
 	list: t.procedure.use(normalRoute).query(async () => {
@@ -100,6 +101,33 @@ export const devices = t.router({
 					},
 				},
 			});
+		}),
+	add: t.procedure
+		.use(adminRoute)
+		.input(z.object({ deviceName: z.string().nonempty() }))
+		.mutation(async ({ input }) => {
+			const existingDeviceType = await prisma.deviceType.findUnique({
+				where: { name: input.deviceName },
+			});
+
+			if (existingDeviceType !== null)
+				return {
+					success: false,
+					message: "Device type already exists",
+				} as const;
+
+			const newDevice = await prisma.deviceType.create({
+				data: { name: input.deviceName },
+			});
+
+			await prisma.device.create({
+				data: { deviceTypeId: newDevice.id },
+			});
+
+			return {
+				success: true,
+				message: "Device type added successfully",
+			} as const;
 		}),
 	adminGet: t.procedure
 		.use(adminRoute)
