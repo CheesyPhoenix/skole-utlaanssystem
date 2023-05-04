@@ -3,6 +3,7 @@
 	import type { PageData } from "./$types";
 	import { page } from "$app/stores";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 
 	export let data: PageData;
 
@@ -33,7 +34,9 @@
 	}
 </script>
 
-<div class="card p-4 mt-2">
+<LinkButton href="/../" relative>Go back</LinkButton>
+
+<div class="card p-4 mt-6">
 	<h3 class="mb-2">
 		{data.teacher.name}<span class="opacity-70 float-right"
 			>#{data.teacher.id}</span

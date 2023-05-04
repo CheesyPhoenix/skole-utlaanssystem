@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
 </script>
 
-<h2 class="mb-4">{data.device.name}</h2>
+<LinkButton href="/../" relative>Go back</LinkButton>
+
+<h2 class="mb-4 mt-4">{data.device.name}</h2>
 
 {#each data.device.Devices as device}
 	<a

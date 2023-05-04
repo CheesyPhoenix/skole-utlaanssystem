@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import LinkButton from "$lib/components/LinkButton.svelte";
+	import { adminTeacherTab } from "$lib/stores/adminTeachersTab";
 	import type { PageData } from "./$types";
 	import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 
@@ -8,11 +10,17 @@
 	let tab: "REQUESTS" | "TEACHERS" = "REQUESTS";
 </script>
 
-<h2 class="mb-4">Teachers</h2>
+<LinkButton href="/../" relative>Go back</LinkButton>
+
+<h2 class="mb-4 mt-4">Teachers</h2>
 
 <TabGroup>
-	<Tab bind:group={tab} value={"REQUESTS"} name="Requests">Requests</Tab>
-	<Tab bind:group={tab} value={"TEACHERS"} name="Teachers">Teachers</Tab>
+	<Tab bind:group={$adminTeacherTab} value={"REQUESTS"} name="Requests"
+		>Requests</Tab
+	>
+	<Tab bind:group={$adminTeacherTab} value={"TEACHERS"} name="Teachers"
+		>Teachers</Tab
+	>
 
 	<svelte:fragment slot="panel">
 		{#if tab === "TEACHERS"}

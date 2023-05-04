@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { modalStore, toastStore } from "@skeletonlabs/skeleton";
+	import LinkButton from "$lib/components/LinkButton.svelte";
 	import type { PageData } from "./$types";
 	import { page } from "$app/stores";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
@@ -33,7 +34,9 @@
 	}
 </script>
 
-<div class="card p-4 mt-2">
+<LinkButton href="/../" relative>Go back</LinkButton>
+
+<div class="card p-4 mt-6">
 	<h3 class="mb-2">
 		{data.device.name}
 		<span class="opacity-70 float-right">#{data.deviceId}</span>
