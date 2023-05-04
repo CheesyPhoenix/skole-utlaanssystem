@@ -9,10 +9,13 @@ export const load: PageLoad = async (event) =>
 		const deviceTypeId = parseInt(event.params.deviceTypeId);
 		if (isNaN(deviceTypeId)) throw error(400);
 
+		const deviceId = parseInt(event.params.deviceId);
+		if (isNaN(deviceId)) throw error(400);
+
 		const device = await trpc.devices.adminGet.query({
 			deviceTypeId: deviceTypeId,
 		});
 		if (device === null) throw error(404);
 
-		return { device };
+		return { device, deviceId };
 	});

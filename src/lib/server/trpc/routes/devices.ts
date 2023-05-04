@@ -117,4 +117,11 @@ export const devices = t.router({
 				},
 			});
 		}),
+	deleteDevice: t.procedure
+		.use(adminRoute)
+		.input(z.object({ deviceId: z.number() }))
+		.mutation(async ({ input }) => {
+			await prisma.device.delete({ where: { id: input.deviceId } });
+			return "Device deleted" as const;
+		}),
 });
