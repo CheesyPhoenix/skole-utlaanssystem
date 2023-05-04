@@ -14,7 +14,8 @@
 {#each data.devices as device}
 	<a
 		href={$page.url.pathname + "/" + device.id}
-		class="card card-hover p-4 mb-2 block"
-		>{device.name} <span>#{device.id}</span></a
+		class="card card-hover p-4 mb-2 block">{device.name}</a
 	>
 {/each}
+
+<LinkButton href="/add" relative>+ Add equipment type</LinkButton>

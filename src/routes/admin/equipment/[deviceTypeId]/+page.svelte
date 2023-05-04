@@ -4,6 +4,10 @@
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
+
+	function addDevice() {
+		throw new Error("Function not implemented.");
+	}
 </script>
 
 <LinkButton href="/../" relative>Go back</LinkButton>
@@ -17,3 +21,7 @@
 		>{data.device.name} <span>#{device.id}</span></a
 	>
 {/each}
+
+<button class="btn variant-filled-primary ml-1 mr-1" on:click={addDevice}
+	>+ Add</button
+>
