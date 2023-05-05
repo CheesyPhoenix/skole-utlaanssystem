@@ -9,7 +9,7 @@
 
 <LinkButton href="/../" relative>Go back</LinkButton>
 
-<h2 class="mb-4 mt-4">Equipment</h2>
+<h2 class="mb-4 mt-4">Device Management</h2>
 
 {#each data.devices as device}
 	<a
@@ -18,4 +18,4 @@
 	>
 {/each}
 
-<LinkButton href="/add" relative>+ Add equipment type</LinkButton>
+<LinkButton href="/add" relative>+ Add device type</LinkButton>
