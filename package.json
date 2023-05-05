@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
+    "dev": "pnpm i && prisma migrate dev && vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -16,6 +16,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/bcrypt": "^5.0.0",
     "autoprefixer": "^10.4.14",
+    "pnpm": "^8.4.0",
     "postcss": "^8.4.23",
     "prisma": "^4.13.0",
     "svelte": "^3.58.0",
