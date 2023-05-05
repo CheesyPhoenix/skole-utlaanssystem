@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidate } from "$app/navigation";
 	import { page } from "$app/stores";
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
@@ -12,6 +13,8 @@
 				deviceType: data.device.id,
 			});
 		});
+
+		await invalidate("app:devices");
 	}
 </script>
 
