@@ -1,45 +1,45 @@
 {
-  "name": "polls",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "pnpm i && prisma migrate dev && vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-  },
-  "devDependencies": {
-    "@skeletonlabs/skeleton": "^1.2.5",
-    "@sveltejs/adapter-auto": "^2.0.1",
-    "@sveltejs/kit": "^1.15.11",
-    "@tailwindcss/forms": "^0.5.3",
-    "@types/bcrypt": "^5.0.0",
-    "autoprefixer": "^10.4.14",
-    "pnpm": "^8.4.0",
-    "postcss": "^8.4.23",
-    "prisma": "^4.13.0",
-    "svelte": "^3.58.0",
-    "svelte-check": "^3.2.0",
-    "tailwindcss": "^3.3.2",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.4"
-  },
-  "type": "module",
-  "dependencies": {
-    "@floating-ui/dom": "^1.2.7",
-    "@prisma/client": "^4.13.0",
-    "@sveltejs/adapter-node": "^1.2.4",
-    "@trpc/client": "^10.25.0",
-    "@trpc/server": "^10.25.0",
-    "bcrypt": "^5.1.0",
-    "dotenv": "^16.0.3",
-    "trpc-sveltekit": "^3.5.6",
-    "ts-node": "^10.9.1",
-    "zod": "^3.21.4"
-  },
-  "prisma": {
-    "seed": "ts-node --esm prisma/seed.ts"
-  }
+	"name": "polls",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "pnpm i && prisma migrate dev && vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@skeletonlabs/skeleton": "^1.2.5",
+		"@sveltejs/adapter-auto": "^2.0.1",
+		"@sveltejs/kit": "^1.15.11",
+		"@tailwindcss/forms": "^0.5.3",
+		"@types/bcrypt": "^5.0.0",
+		"autoprefixer": "^10.4.14",
+		"pnpm": "^8.4.0",
+		"postcss": "^8.4.23",
+		"prisma": "^4.13.0",
+		"svelte": "^3.58.0",
+		"svelte-check": "^3.2.0",
+		"tailwindcss": "^3.3.2",
+		"tslib": "^2.5.0",
+		"typescript": "^5.0.4",
+		"vite": "^4.3.4",
+		"ts-node": "^10.9.1"
+	},
+	"type": "module",
+	"dependencies": {
+		"@floating-ui/dom": "^1.2.7",
+		"@prisma/client": "^4.13.0",
+		"@sveltejs/adapter-node": "^1.2.4",
+		"@trpc/client": "^10.25.0",
+		"@trpc/server": "^10.25.0",
+		"bcrypt": "^5.1.0",
+		"dotenv": "^16.0.3",
+		"trpc-sveltekit": "^3.5.6",
+		"zod": "^3.21.4"
+	},
+	"prisma": {
+		"seed": "ts-node --esm prisma/seed.ts"
+	}
 }

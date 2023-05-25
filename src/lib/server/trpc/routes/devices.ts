@@ -2,7 +2,6 @@ import prisma from "$lib/server/prisma/prisma";
 import { t } from "$lib/server/trpc/t";
 import { z } from "zod";
 import { adminRoute, normalRoute } from "../middleware";
-import { transformDocument } from "@prisma/client/runtime";
 
 export const devices = t.router({
 	list: t.procedure.use(normalRoute).query(async () => {
