@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { invalidate } from "$app/navigation";
+	import { goto, invalidate } from "$app/navigation";
 	import { page } from "$app/stores";
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { tAuthSafe } from "$lib/trpc-client/autoRedirect";
@@ -81,11 +81,50 @@
 			},
 		});
 	}
+
+	function deleteDeviceType() {
+		tAuthSafe($page, async (trpc) => {
+			const res = await trpc.devices.deleteType.mutate({
+				deviceTypeId: data.device.id,
+			});
+
+			if (res === "Device deleted") {
+				toastStore.trigger({
+					message: "Device Type deleted successfully",
+					background: "variant-filled-success",
+				});
+
+				await goto("./");
+			} else {
+				toastStore.trigger({
+					message: "Could not delete device",
+					background: "variant-filled-error",
+				});
+			}
+		});
+	}
+
+	function deleteDeviceTypePrompt() {
+		modalStore.trigger({
+			type: "confirm",
+			title: "Delete Device Type",
+			body: `Are you sure you want to delete device type <code>${data.device.name} #${data.device.id}</code>?`,
+			buttonTextConfirm: "Delete Addon Type",
+			modalClasses: "[&>footer>.variant-filled]:variant-filled-error",
+			response: (r) => r && deleteDeviceType(),
+		});
+	}
 </script>
 
 <LinkButton href="/../" relative>Go back</LinkButton>
 
-<h2 class="mb-4 mt-4">{data.device.name}</h2>
+<h2 class="mb-4 mt-4">
+	{data.device.name}
+	<button
+		class="btn variant-filled-error float-right font-normal"
+		on:click={deleteDeviceTypePrompt}>Delete Device Type</button
+	>
+</h2>
 
 <TabGroup>
 	<Tab bind:group={$deviceTypeTab} value="DEVICES" name="Devices">Devices</Tab

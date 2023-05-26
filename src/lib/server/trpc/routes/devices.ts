@@ -156,7 +156,26 @@ export const devices = t.router({
 		.use(adminRoute)
 		.input(z.object({ deviceId: z.number() }))
 		.mutation(async ({ input }) => {
+			const device = await prisma.device.findUnique({
+				where: { id: input.deviceId },
+			});
+			if (device === null) return "Device not found" as const;
+
 			await prisma.device.delete({ where: { id: input.deviceId } });
+			return "Device deleted" as const;
+		}),
+	deleteType: t.procedure
+		.use(adminRoute)
+		.input(z.object({ deviceTypeId: z.number() }))
+		.mutation(async ({ input }) => {
+			const deviceType = await prisma.deviceType.findUnique({
+				where: { id: input.deviceTypeId },
+			});
+			if (deviceType === null) return "Device Type not found" as const;
+
+			await prisma.deviceType.delete({
+				where: { id: input.deviceTypeId },
+			});
 			return "Device deleted" as const;
 		}),
 });
