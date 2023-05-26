@@ -11,6 +11,7 @@
 	} from "@skeletonlabs/skeleton";
 	import type { PageData } from "./$types";
 	import Icon from "$lib/components/Icon.svelte";
+	import { deviceTypeTab } from "$lib/stores/deviceTypeTab";
 
 	export let data: PageData;
 
@@ -52,11 +53,18 @@
 
 	async function addAddon(name: string) {
 		await tAuthSafe($page, async (trpc) => {
-			await trpc.addons.createAddonType.mutate({
+			const res = await trpc.addons.createAddonType.mutate({
 				name,
 				deviceTypeId: data.device.id,
 			});
-			await invalidate("app:devicetype:" + data.device.id);
+			if (typeof res === "string") {
+				toastStore.trigger({
+					message: res,
+					background: "variant-filled-error",
+				});
+			} else {
+				await invalidate("app:devicetype:" + data.device.id);
+			}
 		});
 	}
 
@@ -73,8 +81,6 @@
 			},
 		});
 	}
-
-	let tab: "DEVICES" | "ADDONS" = "DEVICES";
 </script>
 
 <LinkButton href="/../" relative>Go back</LinkButton>
@@ -82,11 +88,12 @@
 <h2 class="mb-4 mt-4">{data.device.name}</h2>
 
 <TabGroup>
-	<Tab bind:group={tab} value="DEVICES" name="Devices">Devices</Tab>
-	<Tab bind:group={tab} value="ADDONS" name="Addons">Addons</Tab>
+	<Tab bind:group={$deviceTypeTab} value="DEVICES" name="Devices">Devices</Tab
+	>
+	<Tab bind:group={$deviceTypeTab} value="ADDONS" name="Addons">Addons</Tab>
 
 	<svelte:fragment slot="panel">
-		{#if tab === "DEVICES"}
+		{#if $deviceTypeTab === "DEVICES"}
 			{#each data.device.Devices as device}
 				<p class="card p-4 mb-2 block">
 					{data.device.name} <span>#{device.id}</span>
@@ -106,9 +113,8 @@
 		{:else}
 			{#each data.device.CompatibleAddons as addon}
 				<a
-					href={$page.url.pathname + "/addon/" + addon.id}
-					class="card card-hover p-4 mb-2 block"
-					>{addon.name} <span>#{addon.id}</span></a
+					href={$page.url.pathname + "/addonType/" + addon.id}
+					class="card card-hover p-4 mb-2 block">{addon.name}</a
 				>
 			{/each}
 
