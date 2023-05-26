@@ -112,9 +112,7 @@ export const orders = t.router({
 				where: {
 					addonTypeId: { in: input.addonTypes },
 					Type: {
-						CompatibleDevices: {
-							some: { id: input.deviceTypeId },
-						},
+						CompatibleDevice: { id: input.deviceTypeId },
 					},
 					NOT: {
 						Orders: {

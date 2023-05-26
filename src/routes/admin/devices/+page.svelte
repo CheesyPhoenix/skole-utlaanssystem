@@ -18,4 +18,4 @@
 	>
 {/each}
 
-<LinkButton href="/add" relative>+ Add device type</LinkButton>
+<LinkButton href="/add" relative class="mt-2">+ Add device type</LinkButton>

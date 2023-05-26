@@ -4,7 +4,7 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async (event) =>
 	tAuthSafe(event, async (trpc) => {
-		event.depends("app:devices");
+		event.depends("app:devicetype:" + event.params.deviceTypeId);
 
 		const deviceTypeId = parseInt(event.params.deviceTypeId);
 		if (isNaN(deviceTypeId)) throw error(400);

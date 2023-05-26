@@ -19,21 +19,22 @@ model DeviceType {
 
 model Device {
   id           Int        @id @default(autoincrement())
-  Type         DeviceType @relation(fields: [deviceTypeId], references: [id])
+  Type         DeviceType @relation(fields: [deviceTypeId], references: [id], onDelete: Cascade)
   deviceTypeId Int
   Orders       Order[]
 }
 
 model AddonType {
-  id                Int          @id @default(autoincrement())
-  CompatibleDevices DeviceType[]
-  name              String       @unique
-  Addons            Addon[]
+  id               Int        @id @default(autoincrement())
+  CompatibleDevice DeviceType @relation(fields: [deviceTypeId], references: [id], onDelete: Cascade)
+  name             String     @unique
+  Addons           Addon[]
+  deviceTypeId     Int
 }
 
 model Addon {
   id          Int       @id @default(autoincrement())
-  Type        AddonType @relation(fields: [addonTypeId], references: [id])
+  Type        AddonType @relation(fields: [addonTypeId], references: [id], onDelete: Cascade)
   addonTypeId Int
   Orders      Order[]
 }
